@@ -1,0 +1,10 @@
+{
+	"name" : "SIBasicTechnologies" ,
+	"version" : "0.0.1" ,
+	"factorio_version" : "1.0" ,
+	"title" : "SI Basic Technologies" ,
+	"author" : "Sidoupiar" ,
+	"homepage" : "http://www.sidoupiar.com" ,
+	"description" : "Adds many things before the game started" ,
+	"dependencies" : [ "base" , "SICoreFunctionLibrary >= 0.2.5" ]
+}
