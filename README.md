@@ -1,4 +1,4 @@
-# SIBasicTechnologies
+# SIBasicTechnologies_0.0.1
 本 mod 包含以下内容，请悉知：
 1. 蛮荒大地的孤独采石人
 2. 聚末成塔的木头雕刻家
