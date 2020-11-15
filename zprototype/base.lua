@@ -4,27 +4,27 @@
 
 local stonePacks =
 {
-	"sibt-item-stone-panel"
+	"automation-science-pack" -- "sibt-item-stone-panel"
 }
 
 local woodPacks =
 {
-	"sibt-item-wood-log"
+	"logistic-science-pack" -- "sibt-item-wood-log"
 }
 
 local animalPacks =
 {
-	"sibt-item-egg-nest"
+	"chemical-science-pack" -- "sibt-item-egg-nest"
 }
 
 local windPacks =
 {
-	"sibt-item-windmill-wheel"
+	"production-science-pack" -- "sibt-item-windmill-wheel"
 }
 
 local steamPacks =
 {
-	"sibt-item-book-pack"
+	"utility-science-pack" -- "sibt-item-book-pack"
 }
 
 local allPacks = {}
@@ -34,7 +34,7 @@ for i , v in pairs{ stonePacks , woodPacks , animalPacks , windPacks , steamPack
 -- -------- 玩家能力科技 --------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
-SIGen
+SIGen.NewSubGroup( "technology" ).NewTypeRecipe( SIBT.handRub )
 
 -- 背包大小
 .NewTechnology( "character-inventory-slot-1" )
@@ -51,6 +51,7 @@ SIGen
 .AddResults( SIPackers.SingleNothingModifier( "SIBT.character-crafting-speed" ) )
 
 .NewTechnology( "character-crafting-speed-5" )
+.SetTechnologies{ "sibt-technology-character-crafting-speed-1" }
 .SetLevel( 5 , 9 )
 .SetCosts( steamPacks , "L*40" )
 .SetSpeed( 30 )
@@ -64,18 +65,21 @@ SIGen
 .AddResults( SIPackers.SingleNothingModifier( "SIBT.character-mining-speed" ) )
 
 .NewTechnology( "character-mining-speed-3" )
+.SetTechnologies{ "sibt-technology-character-mining-speed-1" }
 .SetLevel( 3 , 4 )
 .SetCosts( animalPacks , "L*20" )
 .SetSpeed( 20 )
 .AddResults( SIPackers.SingleNothingModifier( "SIBT.character-mining-speed" ) )
 
 .NewTechnology( "character-mining-speed-5" )
+.SetTechnologies{ "sibt-technology-character-mining-speed-3" }
 .SetLevel( 5 , 6 )
 .SetCosts( windPacks , "L*40" )
 .SetSpeed( 40 )
 .AddResults( SIPackers.SingleNothingModifier( "SIBT.character-mining-speed" ) )
 
 .NewTechnology( "character-mining-speed-7" )
+.SetTechnologies{ "sibt-technology-character-mining-speed-5" }
 .SetLevel( 7 , 9 )
 .SetCosts( steamPacks , "L*80" )
 .SetSpeed( 80 )
@@ -89,6 +93,7 @@ SIGen
 .AddResults( SIPackers.SingleNothingModifier( "SIBT.character-running-speed" ) )
 
 .NewTechnology( "character-running-speed-2" )
+.SetTechnologies{ "sibt-technology-character-running-speed-1" }
 .SetLevel( 2 , 5 )
 .SetCosts( steamPacks , "L*200" )
 .SetSpeed( 60 )

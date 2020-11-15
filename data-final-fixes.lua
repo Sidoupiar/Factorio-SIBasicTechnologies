@@ -140,8 +140,7 @@ local recipeList =
 	"copper-cable" ,
 	"assembling-machine-1" ,
 	"assembling-machine-2" ,
-	"assembling-machine-3" ,
-	""
+	"assembling-machine-3"
 }
 for i , v in pairs( recipeList ) do SIGen.GetData( SITypes.recipe , v ).category = "advanced-crafting" end
 

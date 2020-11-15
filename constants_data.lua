@@ -4,7 +4,7 @@ return
 	autoLoad = true ,
 	autoName = true ,
 	
-	handRub = "hand-rub" ,
+	handRub = "sibt-hand-rub" ,
 	
 	mold =
 	{

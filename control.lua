@@ -17,23 +17,25 @@ end )
 -- ---------- 玩家事件 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
-function EventPlayerCreated( event )
+SIEventBus.Add( SIEvents.on_player_joined_game , function( event )
 	local player = game.players[event.player_index]
+	local force = player.force
+	force.manual_mining_speed_modifier = -0.9     -- 制作速度增加比率 , 默认 0
+	force.manual_crafting_speed_modifier = -0.9   -- 采矿速度增加比率 , 默认 0
+	force.character_running_speed_modifier = -0.6 -- 移动速度增加比率 , 默认 0
 	-- 修改玩家能力
-	if player.haracter then
-		player.character_crafting_speed_modifier = 0.1 -- 制作速度比率 , 默认 1
-		player.character_mining_speed_modifier = 0.1   -- 采矿速度比率 , 默认 1
-		player.character_running_speed_modifier = 0.5  -- 移动速度比率 , 默认 1
+	if player.character then
+		player.character_crafting_speed_modifier = -0.9 -- 制作速度增加比率 , 默认 0
+		player.character_mining_speed_modifier = -0.9   -- 采矿速度增加比率 , 默认 0
+		player.character_running_speed_modifier = -0.5  -- 移动速度增加比率 , 默认 0
 	end
-end
-
-script.on_event( SIEvents.on_player_created , EventPlayerCreated )
+end )
 
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 研究事件 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
-function EventTechnologyResearched( event )
+SIEventBus.Add( SIEvents.on_research_finished , function( event )
 	local technology = event.on_research_finished
 	for i , effect in pairs( technology.effects ) do
 		if effect.type == "nothing" then
@@ -47,9 +49,7 @@ function EventTechnologyResearched( event )
 			end
 		end
 	end
-end
-
-script.on_event( SIEvents.on_research_finished , EventTechnologyResearched )
+end )
 
 
 
