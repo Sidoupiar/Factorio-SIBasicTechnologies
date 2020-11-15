@@ -48,51 +48,51 @@ SIGen
 .SetLevel( 1 , 4 )
 .SetCosts( windPacks , "L*20" )
 .SetSpeed( 15 )
-.AddResults( SIPackers.SingleNothingModifier( "sibt.character-crafting-speed" ) )
+.AddResults( SIPackers.SingleNothingModifier( "SIBT.character-crafting-speed" ) )
 
 .NewTechnology( "character-crafting-speed-5" )
 .SetLevel( 5 , 9 )
 .SetCosts( steamPacks , "L*40" )
 .SetSpeed( 30 )
-.AddResults( SIPackers.SingleNothingModifier( "sibt.character-crafting-speed" ) )
+.AddResults( SIPackers.SingleNothingModifier( "SIBT.character-crafting-speed" ) )
 
 -- 采矿速度
 .NewTechnology( "character-mining-speed-1" )
 .SetLevel( 1 , 2 )
 .SetCosts( woodPacks , "L*10" )
 .SetSpeed( 10 )
-.AddResults( SIPackers.SingleNothingModifier( "sibt.character-mining-speed" ) )
+.AddResults( SIPackers.SingleNothingModifier( "SIBT.character-mining-speed" ) )
 
 .NewTechnology( "character-mining-speed-3" )
 .SetLevel( 3 , 4 )
 .SetCosts( animalPacks , "L*20" )
 .SetSpeed( 20 )
-.AddResults( SIPackers.SingleNothingModifier( "sibt.character-mining-speed" ) )
+.AddResults( SIPackers.SingleNothingModifier( "SIBT.character-mining-speed" ) )
 
 .NewTechnology( "character-mining-speed-5" )
 .SetLevel( 5 , 6 )
 .SetCosts( windPacks , "L*40" )
 .SetSpeed( 40 )
-.AddResults( SIPackers.SingleNothingModifier( "sibt.character-mining-speed" ) )
+.AddResults( SIPackers.SingleNothingModifier( "SIBT.character-mining-speed" ) )
 
 .NewTechnology( "character-mining-speed-7" )
 .SetLevel( 7 , 9 )
 .SetCosts( steamPacks , "L*80" )
 .SetSpeed( 80 )
-.AddResults( SIPackers.SingleNothingModifier( "sibt.character-mining-speed" ) )
+.AddResults( SIPackers.SingleNothingModifier( "SIBT.character-mining-speed" ) )
 
 -- 移动速度
 .NewTechnology( "character-running-speed-1" )
 .SetLevel( 1 , 1 )
 .SetCosts( windPacks , "L*100" )
 .SetSpeed( 30 )
-.AddResults( SIPackers.SingleNothingModifier( "sibt.character-running-speed" ) )
+.AddResults( SIPackers.SingleNothingModifier( "SIBT.character-running-speed" ) )
 
 .NewTechnology( "character-running-speed-2" )
 .SetLevel( 2 , 5 )
 .SetCosts( steamPacks , "L*200" )
 .SetSpeed( 60 )
-.AddResults( SIPackers.SingleNothingModifier( "sibt.character-running-speed" ) )
+.AddResults( SIPackers.SingleNothingModifier( "SIBT.character-running-speed" ) )
 
 
 

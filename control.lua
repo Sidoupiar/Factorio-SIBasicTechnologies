@@ -1,8 +1,7 @@
 require( "__SICoreFunctionLibrary__/util" )
 
-need( "__SICoreFunctionLibrary__/define/load" )
-need( "__SICoreFunctionLibrary__/function/load" )
-need( "__SICoreFunctionLibrary__/runtime/globalData" )
+needlist( "__SICoreFunctionLibrary__" , "define/load" , "function/load" )
+needlist( "__SICoreFunctionLibrary__/runtime/structure" , "sievent_bus" , "global_data" )
 
 load()
 
@@ -10,13 +9,9 @@ load()
 -- ----------- 初始化 -----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
--- 初始化
-function OnInit()
-	
-end
+SIEventBus.Init( function()
 
-script.on_init( OnInit )
-script.on_configuration_changed( OnInit )
+end )
 
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 玩家事件 ----------------------------------------------------------------------------
@@ -43,11 +38,11 @@ function EventTechnologyResearched( event )
 	for i , effect in pairs( technology.effects ) do
 		if effect.type == "nothing" then
 			local description = effect.effect_description
-			if description == "sibt.character-crafting-speed" then
+			if description == "SIBT.character-crafting-speed" then
 				for n , player in pairs( technology.force.players ) do player.character_crafting_speed_modifier = player.character_crafting_speed_modifier + 0.1 end
-			elseif description == "sibt.character-mining-speed" then
+			elseif description == "SIBT.character-mining-speed" then
 				for n , player in pairs( technology.force.players ) do player.character_mining_speed_modifier = player.character_mining_speed_modifier + 0.1 end
-			elseif description == "sibt.character-running-speed" then
+			elseif description == "SIBT.character-running-speed" then
 				for n , player in pairs( technology.force.players ) do player.character_running_speed_modifier = player.character_running_speed_modifier + 0.1 end
 			end
 		end

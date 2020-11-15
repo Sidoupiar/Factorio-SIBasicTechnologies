@@ -36,7 +36,7 @@ end
 -- ------------------------------------------------------------------------------------------------
 -- ----- 调整原版石头和树木 -----------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
-
+if false then
 local rockList = { "red-desert-rock-big" , "red-desert-rock-huge" , "rock-big" , "rock-huge" , "sand-rock-big" }
 for i , v in pairs( rockList ) do
 	local rock = SIGen.GetList( SITypes.entity.simpleEntity , v )
@@ -125,7 +125,7 @@ for i , v in pairs( recipeList ) do
 	if v.allow_decomposition == nil then v.allow_decomposition = false end
 end
 SIGen.Extend( recipeList )
-
+end
 -- ------------------------------------------------------------------------------------------------
 -- ------ 调整原版物品配方 ------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
@@ -140,7 +140,8 @@ local recipeList =
 	"copper-cable" ,
 	"assembling-machine-1" ,
 	"assembling-machine-2" ,
-	"assembling-machine-3"
+	"assembling-machine-3" ,
+	""
 }
 for i , v in pairs( recipeList ) do SIGen.GetData( SITypes.recipe , v ).category = "advanced-crafting" end
 
