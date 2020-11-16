@@ -98,13 +98,3 @@ SIGen.NewSubGroup( "technology" ).NewTypeRecipe( SIBT.handRub )
 .SetCosts( steamPacks , "L*200" )
 .SetSpeed( 60 )
 .AddResults( SIPackers.SingleNothingModifier( "SIBT.character-running-speed" ) )
-
-
-
-
-
-
-
-
-
-
