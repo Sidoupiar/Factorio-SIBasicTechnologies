@@ -84,24 +84,24 @@ for i , v in pairs( SIGen.GetList( SITypes.entity.tree ) ) do
 		end
 	end
 end
-
+end
 -- ------------------------------------------------------------------------------------------------
 -- --- 创建原版材料的替代配方 ---------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
-local moldWheelIn = SIPackers.SingleItemIngredient( SIBT.mold.wheel , 1 )
-local moldPipeIn = SIPackers.SingleItemIngredient( SIBT.mold.pipe , 1 )
-local toolHammerIn = SIPackers.SingleItemIngredient( SIBT.tool.iron.hammer , 1 )
-local toolSawIn = SIPackers.SingleItemIngredient( SIBT.tool.iron.saw , 1 )
-local toolBoltDriverIn = SIPackers.SingleItemIngredient( SIBT.tool.iron.boltDriver , 1 )
+local moldWheelIn = SIPackers.SingleItemIngredient( "sibt-item-mold-wheel" , 1 )
+local moldPipeIn = SIPackers.SingleItemIngredient( "sibt-item-mold-pipe" , 1 )
+local toolHammerIn = SIPackers.SingleItemIngredient( "sibt-item-tool-iron-hammer" , 1 )
+local toolSawIn = SIPackers.SingleItemIngredient( "sibt-item-tool-iron-saw" , 1 )
+local toolBoltDriverIn = SIPackers.SingleItemIngredient( "sibt-item-tool-iron-bolt-driver" , 1 )
 
-local moldWheelOut = SIPackers.SingleItemProduct( SIBT.mold.wheel , 1 , 0.99 )
-local moldPipeOut = SIPackers.SingleItemProduct( SIBT.mold.pipe , 1 , 0.99 )
-local toolHammerOut = SIPackers.SingleItemProduct( SIBT.tool.iron.hammer , 1 , 0.99 )
-local toolSawOut = SIPackers.SingleItemProduct( SIBT.tool.iron.saw , 1 , 0.99 )
-local toolBoltDriverOut = SIPackers.SingleItemProduct( SIBT.tool.iron.boltDriver , 1 , 0.99 )
+local moldWheelOut = SIPackers.SingleItemProduct( "sibt-item-mold-wheel" , 0.99 , 1 , 1 )
+local moldPipeOut = SIPackers.SingleItemProduct( "sibt-item-mold-pipe" , 0.99 , 1 , 1 )
+local toolHammerOut = SIPackers.SingleItemProduct( "sibt-item-tool-iron-hammer" , 0.99 , 1 , 1 )
+local toolSawOut = SIPackers.SingleItemProduct( "sibt-item-tool-iron-saw" , 0.99 , 1 , 1 )
+local toolBoltDriverOut = SIPackers.SingleItemProduct( "sibt-item-tool-iron-bolt-driver" , 0.99 , 1 , 1 )
 
-local recipeList =
+for i , v in pairs
 {
 	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "iron-gear-wheel" ) ) , moldWheelIn , toolHammerIn ) , moldWheelOut , toolHammerOut ) ,
 	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "iron-stick" ) ) , toolSawIn ) , toolSawOut ) ,
@@ -109,10 +109,9 @@ local recipeList =
 	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "wooden-chest" ) ) , toolHammerIn , toolSawIn ) , toolHammerOut , toolSawOut ) ,
 	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "pipe" ) ) , moldPipeIn , toolHammerIn ) , moldPipeOut , toolHammerOut ) ,
 	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "copper-cable" ) ) , toolHammerIn , toolSawIn , toolBoltDriverIn ) , toolHammerOut , toolSawOut , toolBoltDriverOut )
-}
-for i , v in pairs( recipeList ) do
-	v.name = "si" .. SIKeyw[SITypes.recipe] .. v.name
-	v.category = "crafting"
+} do
+	v.name = "sibt-" .. SIKeyw[SITypes.recipe] .. "-" .. v.name
+	v.category = SIBT.handRub
 	if v.energy_required then v.energy_required = v.energy_required * 2
 	else v.energy_required = 1 end
 	if not v.enabled then v.enabled = true end
@@ -125,7 +124,7 @@ for i , v in pairs( recipeList ) do
 	if v.allow_decomposition == nil then v.allow_decomposition = false end
 end
 SIGen.Extend( recipeList )
-end
+
 -- ------------------------------------------------------------------------------------------------
 -- ------ 调整原版物品配方 ------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
