@@ -89,29 +89,38 @@ end
 -- --- 创建原版材料的替代配方 ---------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
-local moldWheelIn = SIPackers.SingleItemIngredient( "sibt-item-mold-wheel" , 1 )
-local moldPipeIn = SIPackers.SingleItemIngredient( "sibt-item-mold-pipe" , 1 )
+--local moldWheelIn = SIPackers.SingleItemIngredient( "sibt-item-mold-wheel" , 1 )
+--local moldPipeIn = SIPackers.SingleItemIngredient( "sibt-item-mold-pipe" , 1 )
 local toolHammerIn = SIPackers.SingleItemIngredient( "sibt-item-tool-iron-hammer" , 1 )
 local toolSawIn = SIPackers.SingleItemIngredient( "sibt-item-tool-iron-saw" , 1 )
 local toolBoltDriverIn = SIPackers.SingleItemIngredient( "sibt-item-tool-iron-bolt-driver" , 1 )
 
-local moldWheelOut = SIPackers.SingleItemProduct( "sibt-item-mold-wheel" , 0.99 , 1 , 1 )
-local moldPipeOut = SIPackers.SingleItemProduct( "sibt-item-mold-pipe" , 0.99 , 1 , 1 )
+--local moldWheelOut = SIPackers.SingleItemProduct( "sibt-item-mold-wheel" , 0.99 , 1 , 1 )
+--local moldPipeOut = SIPackers.SingleItemProduct( "sibt-item-mold-pipe" , 0.99 , 1 , 1 )
 local toolHammerOut = SIPackers.SingleItemProduct( "sibt-item-tool-iron-hammer" , 0.99 , 1 , 1 )
 local toolSawOut = SIPackers.SingleItemProduct( "sibt-item-tool-iron-saw" , 0.99 , 1 , 1 )
 local toolBoltDriverOut = SIPackers.SingleItemProduct( "sibt-item-tool-iron-bolt-driver" , 0.99 , 1 , 1 )
 
 for i , v in pairs
 {
-	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "iron-gear-wheel" ) ) , moldWheelIn , toolHammerIn ) , moldWheelOut , toolHammerOut ) ,
+	--SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "iron-gear-wheel" ) ) , moldWheelIn , toolHammerIn ) , moldWheelOut , toolHammerOut ) ,
+	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "iron-gear-wheel" ) ) , toolHammerIn ) , toolHammerOut ) ,
 	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "iron-stick" ) ) , toolSawIn ) , toolSawOut ) ,
 	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "stone-furnace" ) ) , toolHammerIn , toolSawIn ) , toolHammerOut , toolSawOut ) ,
 	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "wooden-chest" ) ) , toolHammerIn , toolSawIn ) , toolHammerOut , toolSawOut ) ,
-	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "pipe" ) ) , moldPipeIn , toolHammerIn ) , moldPipeOut , toolHammerOut ) ,
+	--SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "pipe" ) ) , moldPipeIn , toolHammerIn ) , moldPipeOut , toolHammerOut ) ,
+	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "pipe" ) ) , toolHammerIn ) , toolHammerOut ) ,
 	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "copper-cable" ) ) , toolHammerIn , toolSawIn , toolBoltDriverIn ) , toolHammerOut , toolSawOut , toolBoltDriverOut )
 } do
+	local item = SIGen.GetData( SITypes.item.item , v.name )
 	v.name = "sibt-" .. SIKeyw[SITypes.recipe] .. "-" .. v.name
+	v.icon = item.icon
+	v.icon_size = item.icon_size
+	v.icon_mipmaps = item.icon_mipmaps
 	v.category = SIBT.handRub
+	v.group = "sibt-group-sibt"
+	v.subgroup = "sibt-subgroup-base-recipe"
+	v.order = i
 	if v.energy_required then v.energy_required = v.energy_required * 2
 	else v.energy_required = 1 end
 	if not v.enabled then v.enabled = true end
@@ -122,8 +131,8 @@ for i , v in pairs
 	if v.always_show_products == nil then v.always_show_products = true end
 	if v.show_amount_in_title == nil then v.show_amount_in_title = false end
 	if v.allow_decomposition == nil then v.allow_decomposition = false end
+	SIGen.Extend{ v }
 end
-SIGen.Extend( recipeList )
 
 -- ------------------------------------------------------------------------------------------------
 -- ------ 调整原版物品配方 ------------------------------------------------------------------------

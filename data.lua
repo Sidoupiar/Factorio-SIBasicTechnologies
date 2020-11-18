@@ -15,4 +15,4 @@ needlist( "zprototype/age-animal/" , "items" , "entities" , "recipes" )
 needlist( "zprototype/age-wind/" , "items" , "entities" , "recipes" )
 needlist( "zprototype/age-steam/" , "pipes" , "entities" , "recipes" )
 
-SIGen.Finish()
+SIGen.NewSubGroup( "base-recipe" ).Finish()

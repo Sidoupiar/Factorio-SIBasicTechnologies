@@ -28,5 +28,5 @@ for name , box in pairs( list ) do
 	.SetEnergy( 1 )
 	.SetEnabled( true )
 	.SetCosts( "pipe" )
-	.SetResults( SIPackers.SingleItemProduct( "sibt-item-pipe-"..name , 1 , nil , nil , 1 ) )
+	.SetResults{ SIPackers.SingleItemProduct( "sibt-item-pipe-"..name , 1 , nil , nil , 1 ) }
 end
