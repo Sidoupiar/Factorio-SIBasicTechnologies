@@ -1,7 +1,7 @@
 require( "__SICoreFunctionLibrary__/util" )
 
 needlist( "__SICoreFunctionLibrary__" , "define/load" , "function/load" )
-needlist( "__SICoreFunctionLibrary__/runtime/structure" , "sievent_bus" , "global_data" )
+needlist( "__SICoreFunctionLibrary__/runtime/structure" , "sievent_bus" , "siglobal" )
 
 load()
 
