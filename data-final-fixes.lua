@@ -4,15 +4,15 @@
 
 local character = SIGen.GetData( SITypes.entity.character , "character" )
 table.insert( character.crafting_categories , SIBT.handRub ) -- 允许手搓的制作方式
-character.max_health = 350            -- 最大血量 , 默认 250
+character.max_health = 400            -- 最大血量 , 默认 250
 character.inventory_size = 40         -- 背包容量 , 默认 80
-character.build_distance = 5          -- 建造建筑距离 , 默认 10
-character.reach_distance = 5          -- 操作建筑距离 , 默认 10
-character.drop_item_distance = 5      -- 丢弃物品距离 , 默认 10
-character.item_pickup_distance = 1    -- 捡起物品距离 , 默认 1 , 比如传送点
-character.loot_pickup_distance = 4    -- 捡起掉落物品距离 , 默认 2 , 杀怪掉落之类
+character.build_distance = 12         -- 建造建筑距离 , 默认 10
+character.reach_distance = 12         -- 操作建筑距离 , 默认 10
+character.drop_item_distance = 12     -- 丢弃物品距离 , 默认 10
+character.item_pickup_distance = 2    -- 捡起物品距离 , 默认 1 , 比如传送点
+character.loot_pickup_distance = 5    -- 捡起掉落物品距离 , 默认 2 , 杀怪掉落之类
 character.enter_vehicle_distance = 3  -- 进入载具距离 , 默认 3 , 离这么远按 Enter 可以直接进载具
-character.reach_resource_distance = 4 -- 资源开采距离 , 默认 2.7
+character.reach_resource_distance = 5 -- 资源开采距离 , 默认 2.7
 
 -- ------------------------------------------------------------------------------------------------
 -- -------- 调整原版矿物 --------------------------------------------------------------------------
@@ -53,10 +53,10 @@ for i , v in pairs( rockList ) do
 					minable.count = nil
 				end
 			end
-			table.insert( results , SIPackers.SingleItemProduct( SIBT.stone.hard , 1 , 0.2 ) ) -- 硬石块
-			table.insert( results , SIPackers.SingleItemProduct( SIBT.stone.chippings , nil , 1 , 15 , 100 ) ) -- 碎石
-			table.insert( results , SIPackers.SingleItemProduct( "iron-ore" , nil , 0.2 , 1 , 3 ) ) -- 铁矿
-			table.insert( results , SIPackers.SingleItemProduct( "copper-ore" , nil , 0.2 , 1 , 3 ) ) -- 铜矿
+			table.insert( results , SIPackers.SingleItemProduct( "sibt-item-stone-hard" , 0.2 , 1 , 1 ) ) -- 硬石块
+			table.insert( results , SIPackers.SingleItemProduct( "sibt-item-stone-chippings" , 1 , 20 , 115 ) ) -- 碎石
+			table.insert( results , SIPackers.SingleItemProduct( "iron-ore" , 0.1 , 1 , 3 ) ) -- 铁矿
+			table.insert( results , SIPackers.SingleItemProduct( "copper-ore" , 0.1 , 1 , 3 ) ) -- 铜矿
 			minable.results = results
 		end
 	end
@@ -75,11 +75,11 @@ for i , v in pairs( SIGen.GetList( SITypes.entity.tree ) ) do
 					minable.count = nil
 				end
 			end
-			table.insert( results , SIPackers.SingleItemProduct( SIBT.wood.fruit , nil , 0.2 , 1 , 5 ) ) -- 果实
-			table.insert( results , SIPackers.SingleItemProduct( SIBT.wood.leaf , nil , 1 , 20 , 50 ) ) -- 树叶
-			table.insert( results , SIPackers.SingleItemProduct( SIBT.wood.bark , nil , 1 , 1 , 8 ) ) -- 树皮
-			table.insert( results , SIPackers.SingleItemProduct( SIBT.wood.root , 1 ) ) -- 树根
-			table.insert( results , SIPackers.SingleItemProduct( SIBT.wood.sawdust , nil , 1 , 20 , 80 ) ) -- 木屑
+			table.insert( results , SIPackers.SingleItemProduct( "sibt-item-tree-fruit" , 0.2 , 1 , 5 ) ) -- 果实
+			table.insert( results , SIPackers.SingleItemProduct( "sibt-item-tree-leaf" , 1 , 15 , 85 ) ) -- 树叶
+			table.insert( results , SIPackers.SingleItemProduct( "sibt-item-tree-bark" , 1 , 1 , 11 ) ) -- 树皮
+			table.insert( results , SIPackers.SingleItemProduct( "sibt-item-tree-root" , 1 , 1 , 2 ) ) -- 树根
+			table.insert( results , SIPackers.SingleItemProduct( "sibt-item-tree-sawdust" , 1 , 15 , 165 ) ) -- 木屑
 			minable.results = results
 		end
 	end
@@ -89,27 +89,25 @@ end
 -- --- 创建原版材料的替代配方 ---------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
---local moldWheelIn = SIPackers.SingleItemIngredient( "sibt-item-mold-wheel" , 1 )
---local moldPipeIn = SIPackers.SingleItemIngredient( "sibt-item-mold-pipe" , 1 )
+local moldWheelIn = SIPackers.SingleItemIngredient( "sibt-item-mold-wheel" , 1 )
+local moldPipeIn = SIPackers.SingleItemIngredient( "sibt-item-mold-pipe" , 1 )
 local toolHammerIn = SIPackers.SingleItemIngredient( "sibt-item-tool-iron-hammer" , 1 )
 local toolSawIn = SIPackers.SingleItemIngredient( "sibt-item-tool-iron-saw" , 1 )
 local toolBoltDriverIn = SIPackers.SingleItemIngredient( "sibt-item-tool-iron-bolt-driver" , 1 )
 
---local moldWheelOut = SIPackers.SingleItemProduct( "sibt-item-mold-wheel" , 0.99 , 1 , 1 )
---local moldPipeOut = SIPackers.SingleItemProduct( "sibt-item-mold-pipe" , 0.99 , 1 , 1 )
+local moldWheelOut = SIPackers.SingleItemProduct( "sibt-item-mold-wheel" , 0.99 , 1 , 1 )
+local moldPipeOut = SIPackers.SingleItemProduct( "sibt-item-mold-pipe" , 0.99 , 1 , 1 )
 local toolHammerOut = SIPackers.SingleItemProduct( "sibt-item-tool-iron-hammer" , 0.99 , 1 , 1 )
 local toolSawOut = SIPackers.SingleItemProduct( "sibt-item-tool-iron-saw" , 0.99 , 1 , 1 )
 local toolBoltDriverOut = SIPackers.SingleItemProduct( "sibt-item-tool-iron-bolt-driver" , 0.99 , 1 , 1 )
 
 for i , v in pairs
 {
-	--SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "iron-gear-wheel" ) ) , moldWheelIn , toolHammerIn ) , moldWheelOut , toolHammerOut ) ,
-	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "iron-gear-wheel" ) ) , toolHammerIn ) , toolHammerOut ) ,
+	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "iron-gear-wheel" ) ) , moldWheelIn , toolHammerIn ) , moldWheelOut , toolHammerOut ) ,
 	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "iron-stick" ) ) , toolSawIn ) , toolSawOut ) ,
 	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "stone-furnace" ) ) , toolHammerIn , toolSawIn ) , toolHammerOut , toolSawOut ) ,
 	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "wooden-chest" ) ) , toolHammerIn , toolSawIn ) , toolHammerOut , toolSawOut ) ,
-	--SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "pipe" ) ) , moldPipeIn , toolHammerIn ) , moldPipeOut , toolHammerOut ) ,
-	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "pipe" ) ) , toolHammerIn ) , toolHammerOut ) ,
+	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "pipe" ) ) , moldPipeIn , toolHammerIn ) , moldPipeOut , toolHammerOut ) ,
 	SIPackers.AddProducts( SIPackers.AddIngredients( table.deepcopy( SIGen.GetData( SITypes.recipe , "copper-cable" ) ) , toolHammerIn , toolSawIn , toolBoltDriverIn ) , toolHammerOut , toolSawOut , toolBoltDriverOut )
 } do
 	local item = SIGen.GetData( SITypes.item.item , v.name )
@@ -171,7 +169,7 @@ local floorList =
 for i , v in pairs( floorList ) do
 	local floorItem = SIGen.GetData( SITypes.tile , v )
 	if floorItem then
-		if floorItem.walking_speed_modifier then floorItem.walking_speed_modifier = ( floorItem.walking_speed_modifier - 1 ) * 2 + 2 end
+		if floorItem.walking_speed_modifier then floorItem.walking_speed_modifier = ( floorItem.walking_speed_modifier - 1 ) * 3 + 2 end
 		if floorItem.decorative_removal_probability then floorItem.decorative_removal_probability = floorItem.decorative_removal_probability * 1.5 end
 	end
 end
