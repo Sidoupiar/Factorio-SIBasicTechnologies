@@ -5,6 +5,6 @@
 	"title" : "SI Basic Technologies" ,
 	"author" : "Sidoupiar" ,
 	"homepage" : "http://www.sidoupiar.com" ,
-	"description" : "Adds many things before the vanilla game started" ,
-	"dependencies" : [ "SICoreFunctionLibrary >= 0.4.0" ]
+	"description" : "This is a factorio addtional mod. Adds some items and functions, but do not change vanilla features." ,
+	"dependencies" : [ "SICoreFunctionLibrary >= 0.4.6" ]
 }
