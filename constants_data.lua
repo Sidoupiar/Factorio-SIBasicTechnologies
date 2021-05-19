@@ -8,11 +8,12 @@ return
 	
 	group =
 	{
-		logistics = "logistics" ,
-		machine   = "production" ,
-		item      = "intermediate-products" ,
-		weapon    = "combat" ,
-		fluid     = "fluids" ,
-		signal    = "signals"
+		logistics   = { name = "logistics" } ,
+		machine     = { name = "production" } ,
+		item        = { name = "intermediate-products" } ,
+		weapon      = { name = "combat" } ,
+		fluid       = { name = "fluids" } ,
+		signal      = { name = "signals" } ,
+		agriculture = { name = "agriculture" , autoName = true }
 	}
 }
