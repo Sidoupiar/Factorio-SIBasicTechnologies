@@ -1,0 +1,1 @@
+SIGen.NewResource( "清水矿" )
