@@ -2,4 +2,6 @@
 Version: 0.0.1
 Date: 2020.10.10 14:12
   功能:
+    - 功能简介请见 http://www.sidoupiar.com/sidoupiar/factorio/1079/
+    - 添加了一些特殊功能
     - 添加了碳循环
