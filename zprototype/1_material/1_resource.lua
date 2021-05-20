@@ -1,3 +1,6 @@
+SIGen.NewGroup( SIBT.group.item )
+.NewSubGroup( "资源" )
+
 local function CreateResource( resourceName , itemName , color , category )
 	SIBT.item[itemName] = SIGen.NewResource( resourceName )
 	.E.SetCanGlow( true )
@@ -13,9 +16,8 @@ local function CreateResource( resourceName , itemName , color , category )
 	.GetCurrentEntityItemName()
 	if category then SIGen.SetRecipeTypes( category ) end
 	
-	SIGen.SetAutoPlace( SIPackers.Autoplace
+	return SIGen.SetAutoPlace(
 	{
-		name = "uranium-ore" ,
 		order = "d" ,
 		base_density = 0.9 ,
 		base_spots_per_km2 = 1.25 ,
@@ -24,18 +26,19 @@ local function CreateResource( resourceName , itemName , color , category )
 		regular_rq_factor_multiplier = 1 ,
 		has_starting_area_placement = false
 	} , { 100000 , 30000 , 10000 , 3000 , 1000 , 300 , 100 , 30 } )
+	.GetCurrentEntityItem()
 end
 
-CreateResource( "清水矿" , "清水石" , SIPackers.Color256( 31 , 173 , 225 ) )
-CreateResource( "火苗矿" , "火苗石" , SIPackers.Color256( 237 , 111 , 8 ) )
-CreateResource( "悠远矿" , "悠远石" , SIPackers.Color256( 240 , 36 , 129 ) )
-CreateResource( "宁寂矿" , "宁寂石" , SIPackers.Color256( 102 , 10 , 138 ) )
+local ore1 = CreateResource( "清水矿" , "清水石" , SIPackers.Color256( 31 , 173 , 225 ) )
+local ore2 = CreateResource( "火苗矿" , "火苗石" , SIPackers.Color256( 237 , 111 , 8 ) )
+local ore3 = CreateResource( "悠远矿" , "悠远石" , SIPackers.Color256( 240 , 36 , 129 ) )
+local ore4 = CreateResource( "宁寂矿" , "宁寂石" , SIPackers.Color256( 102 , 10 , 138 ) )
 
-SIBT.item.矿山石 = SIGen.NewItem( "矿山石" )
+SIBT.item["矿山石"] = SIGen.NewItem( "矿山石" ).GetCurrentEntityName()
 
 local rockList = { "red-desert-rock-big" , "red-desert-rock-huge" , "rock-big" , "rock-huge" , "sand-rock-big" }
 for i , v in pairs( rockList ) do
-	local rock = SIGen.GetList( SITypes.entity.simpleEntity , v )
+	local rock = SIGen.GetData( SITypes.entity.simpleEntity , v )
 	if rock then
 		local newRock = table.deepcopy( rock )
 		newRock.name = SIGen.CreateName( "矿山石"..i , SITypes.entity.simpleEntity )
@@ -51,7 +54,7 @@ for i , v in pairs( rockList ) do
 		else minable.mining_time = 35 end
 		local results = {}
 		table.insert( results , SIPackers.SingleItemProduct( "stone" , 0.2 , 1 , 5 ) )
-		table.insert( results , SIPackers.SingleItemProduct( "矿山石" , 0.1 , 1 , 3 ) )
+		table.insert( results , SIPackers.SingleItemProduct( SIBT.item["矿山石"] , 0.1 , 1 , 3 ) )
 		minable.results = results
 		newRock.minable = minable
 		SIGen.Extend{ newRock }
