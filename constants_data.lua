@@ -15,5 +15,6 @@ return
 		fluid       = { name = "fluids" } ,
 		signal      = { name = "signals" } ,
 		agriculture = { name = "agriculture" , autoName = true }
-	}
+	} ,
+	item = {}
 }
