@@ -5,8 +5,8 @@
 SIGen.NewGroup( SIBT.group.item )
 .NewSubGroup( "矿物" )
 
-local function CreateResource( itemName , resourceName , color , category )
-	local item = SIGen.NewItem( itemName ).GetCurrentEntity()
+local function CreateResource( itemName , resourceName , action , color , category )
+	local item = SIGen.NewCapsule( itemName ).SetAction( action , color ).GetCurrentEntity()
 	SIBT.item[itemName] = SIGen.GetCurrentEntityName()
 	SIGen.NewResource( resourceName )
 	.E.SetCanGlow( true )
@@ -32,16 +32,16 @@ local function CreateResource( itemName , resourceName , color , category )
 	return item
 end
 
-local ore1 = CreateResource( "清水石" , "清水矿" , SIPackers.Color256( 31 , 173 , 225 ) )
-local ore2 = CreateResource( "火苗石" , "火苗矿" , SIPackers.Color256( 237 , 111 , 8 ) )
-local ore3 = CreateResource( "悠远石" , "悠远矿" , SIPackers.Color256( 240 , 36 , 129 ) )
-local ore4 = CreateResource( "宁寂石" , "宁寂矿" , SIPackers.Color256( 102 , 10 , 138 ) )
+CreateResource( "清水石" , "清水矿" , action1 , SIPackers.Color256( 31 , 173 , 225 ) )
+CreateResource( "火苗石" , "火苗矿" , action2 , SIPackers.Color256( 237 , 111 , 8 ) )
+CreateResource( "悠远石" , "悠远矿" , action3 , SIPackers.Color256( 240 , 36 , 129 ) )
+CreateResource( "宁寂石" , "宁寂矿" , action4 , SIPackers.Color256( 102 , 10 , 138 ) )
 
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 创建岩石 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
-SIBT.item["矿山石"] = SIGen.NewItem( "矿山石" ).GetCurrentEntityName()
+SIBT.item["矿山石"] = SIGen.NewCapsule( "矿山石" ).SetAction( action5 ).GetCurrentEntityName()
 local rockList = { "red-desert-rock-big" , "red-desert-rock-huge" , "rock-big" , "rock-huge" , "sand-rock-big" }
 for i , v in pairs( rockList ) do
 	local rock = SIGen.GetData( SITypes.entity.simpleEntity , v )
