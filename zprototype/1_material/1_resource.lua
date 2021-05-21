@@ -5,11 +5,12 @@
 SIGen.NewGroup( SIBT.group.item )
 .NewSubGroup( "矿物" )
 
-local function CreateResource( resourceName , itemName , color , category )
-	SIBT.item[itemName] = SIGen.NewResource( resourceName )
+local function CreateResource( itemName , resourceName , color , category )
+	local item = SIGen.NewItem( itemName ).GetCurrentEntity()
+	SIBT.item[itemName] = SIGen.GetCurrentEntityName()
+	SIGen.NewResource( resourceName )
 	.E.SetCanGlow( true )
-	.E.SetItemStackSize( 100 )
-	.E.SetItemName( itemName )
+	.E.SetItem( item )
 	.SetSize( 1 , 1 )
 	.SetMapColor( color )
 	.SetStagesEffectsSettings( 5 , 1 , 3.6 , 0.2 , 0.3 )
@@ -17,10 +18,8 @@ local function CreateResource( resourceName , itemName , color , category )
 	.SetTreeSettings( 0.8 , 32*32 )
 	.FillImage()
 	.SetSound( "walking_sound" , SISounds.BaseSoundList( "walking/resources/ore" , 10 , 0.7 ) )
-	.GetCurrentEntityItemName()
 	if category then SIGen.SetRecipeTypes( category ) end
-	
-	return SIGen.SetAutoPlace(
+	SIGen.SetAutoPlace(
 	{
 		order = "d" ,
 		base_density = 0.9 ,
@@ -30,13 +29,13 @@ local function CreateResource( resourceName , itemName , color , category )
 		regular_rq_factor_multiplier = 1 ,
 		has_starting_area_placement = false
 	} , { 100000 , 30000 , 10000 , 3000 , 1000 , 300 , 100 , 30 } )
-	.GetCurrentEntityItem()
+	return item
 end
 
-local ore1 = CreateResource( "清水矿" , "清水石" , SIPackers.Color256( 31 , 173 , 225 ) )
-local ore2 = CreateResource( "火苗矿" , "火苗石" , SIPackers.Color256( 237 , 111 , 8 ) )
-local ore3 = CreateResource( "悠远矿" , "悠远石" , SIPackers.Color256( 240 , 36 , 129 ) )
-local ore4 = CreateResource( "宁寂矿" , "宁寂石" , SIPackers.Color256( 102 , 10 , 138 ) )
+local ore1 = CreateResource( "清水石" , "清水矿" , SIPackers.Color256( 31 , 173 , 225 ) )
+local ore2 = CreateResource( "火苗石" , "火苗矿" , SIPackers.Color256( 237 , 111 , 8 ) )
+local ore3 = CreateResource( "悠远石" , "悠远矿" , SIPackers.Color256( 240 , 36 , 129 ) )
+local ore4 = CreateResource( "宁寂石" , "宁寂矿" , SIPackers.Color256( 102 , 10 , 138 ) )
 
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 创建岩石 ----------------------------------------------------------------------------
