@@ -101,27 +101,13 @@ local action1 =
 				{
 					type = "create-entity" ,
 					entity_name = "grenade-explosion"
-				} ,
-				{
-					type = "invoke-tile-trigger" ,
-					repeat_count = 1
-				} ,
-				{
-					type = "destroy-decoratives" ,
-					from_render_layer = "decorative" ,
-					to_render_layer = "object" ,
-					include_soft_decoratives = true , -- soft decoratives are decoratives with grows_through_rail_path = true
-					include_decals = false ,
-					invoke_decorative_trigger = true ,
-					decoratives_with_trigger_only = false , -- if true, destroys only decoratives that have trigger_effect set
-					radius = 2.25 -- large radius for demostrative purposes
 				}
 			}
 		}
 	} ,
 	{
 		type = "area" ,
-		radius = 3.5 ,
+		radius = 2 ,
 		action_delivery =
 		{
 			type = "instant" ,
@@ -134,10 +120,6 @@ local action1 =
 				{
 					type = "damage" ,
 					damage = { type = "sicfl-water" , amount = 1 }
-				} ,
-				{
-					type = "create-entity" ,
-					entity_name = "explosion"
 				}
 			}
 		}
@@ -197,10 +179,10 @@ local action3 =
 					particle_name = "stone-particle" ,
 					repeat_count = 12 ,
 					initial_height = 0.5 ,
-					initial_vertical_speed = 0.08 ,
-					initial_vertical_speed_deviation = 0.15 ,
-					speed_from_center = 0.08 ,
-					speed_from_center_deviation = 0.15 ,
+					initial_vertical_speed = 0.05 ,
+					initial_vertical_speed_deviation = 0.1 ,
+					speed_from_center = 0.05 ,
+					speed_from_center_deviation = 0.1 ,
 					offset_deviation = { { -0.8984 , -0.5 } , { 0.8984 , 0.5 } }
 				}
 			}
@@ -227,10 +209,10 @@ local action3 =
 					particle_name = "stone-particle" ,
 					repeat_count = 2 ,
 					initial_height = 0.5 ,
-					initial_vertical_speed = 0.08 ,
-					initial_vertical_speed_deviation = 0.15 ,
-					speed_from_center = 0.08 ,
-					speed_from_center_deviation = 0.15 ,
+					initial_vertical_speed = 0.05 ,
+					initial_vertical_speed_deviation = 0.1 ,
+					speed_from_center = 0.05 ,
+					speed_from_center_deviation = 0.1 ,
 					offset_deviation = { { -0.8984 , -0.5 } , { 0.8984 , 0.5 } }
 				}
 			}
@@ -251,10 +233,10 @@ local action4 =
 					particle_name = "stone-particle" ,
 					repeat_count = 12 ,
 					initial_height = 0.5 ,
-					initial_vertical_speed = 0.08 ,
-					initial_vertical_speed_deviation = 0.15 ,
-					speed_from_center = 0.08 ,
-					speed_from_center_deviation = 0.15 ,
+					initial_vertical_speed = 0.05 ,
+					initial_vertical_speed_deviation = 0.1 ,
+					speed_from_center = 0.05 ,
+					speed_from_center_deviation = 0.1 ,
 					offset_deviation = { { -0.8984 , -0.5 } , { 0.8984 , 0.5 } }
 				}
 			}
@@ -277,10 +259,10 @@ local action4 =
 					particle_name = "stone-particle" ,
 					repeat_count = 2 ,
 					initial_height = 0.5 ,
-					initial_vertical_speed = 0.08 ,
-					initial_vertical_speed_deviation = 0.15 ,
-					speed_from_center = 0.08 ,
-					speed_from_center_deviation = 0.15 ,
+					initial_vertical_speed = 0.05 ,
+					initial_vertical_speed_deviation = 0.1 ,
+					speed_from_center = 0.05 ,
+					speed_from_center_deviation = 0.1 ,
 					offset_deviation = { { -0.8984 , -0.5 } , { 0.8984 , 0.5 } }
 				}
 			}
@@ -291,7 +273,19 @@ local action4 =
 CreateResource( "清水石" , "清水矿" , action1 , SIPackers.Color256( 31 , 173 , 225 ) )
 CreateResource( "火苗石" , "火苗矿" , action2 , SIPackers.Color256( 237 , 111 , 8 ) )
 CreateResource( "悠远石" , "悠远矿" , action3 , SIPackers.Color256( 240 , 36 , 129 ) )
-CreateResource( "宁寂石" , "宁寂矿" , action4 , SIPackers.Color256( 102 , 10 , 138 ) )
+local ore = CreateResource( "宁寂石" , "宁寂矿" , action4 , SIPackers.Color256( 102 , 10 , 138 ) )
+
+SIGen.NewResource( "宁寂矿-活化" )
+.E.SetCanGlow( true )
+.E.SetItem( ore )
+.SetSize( 1 , 1 )
+.SetMapColor( color )
+.SetStagesEffectsSettings( 5 , 1 , 3.6 , 0.2 , 0.3 )
+.AddFlags( SIFlags.entityFlags.notOnMap , SIFlags.entityFlags.hidden )
+.SetTreeSettings( 0.8 , 32*32 )
+.FillImage()
+.SetSound( "walking_sound" , walkSound )
+.SetAutoPlace( nil , { 100000 , 30000 , 10000 , 3000 , 1000 , 300 , 100 , 30 } )
 
 -- ------------------------------------------------------------------------------------------------
 -- --------- 创建矿山石 ---------------------------------------------------------------------------
@@ -309,7 +303,7 @@ local action5 =
 				{
 					type = "create-particle" ,
 					particle_name = "stone-particle" ,
-					repeat_count = 35 ,
+					repeat_count = 45 ,
 					initial_height = 0.5 ,
 					initial_vertical_speed = 0.08 ,
 					initial_vertical_speed_deviation = 0.15 ,
@@ -335,7 +329,7 @@ local action5 =
 				{
 					type = "create-particle" ,
 					particle_name = "stone-particle" ,
-					repeat_count = 7 ,
+					repeat_count = 8 ,
 					initial_height = 0.5 ,
 					initial_vertical_speed = 0.08 ,
 					initial_vertical_speed_deviation = 0.15 ,
