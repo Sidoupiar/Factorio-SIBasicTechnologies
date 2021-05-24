@@ -87,6 +87,7 @@ local function CreateResource( itemName , resourceName , action , color , catego
 		has_starting_area_placement = false
 	} , { 100000 , 30000 , 10000 , 3000 , 1000 , 300 , 100 , 30 } )
 	if category then SIGen.SetRecipeTypes( category ) end
+	return item
 end
 
 local action1 =
@@ -107,23 +108,22 @@ local action1 =
 	} ,
 	{
 		type = "area" ,
-		radius = 2 ,
+		radius = 1.9 ,
 		action_delivery =
 		{
 			type = "instant" ,
 			target_effects =
 			{
-				{
-					type = "damage" ,
-					damage = { type = "poison" , amount = 1 }
-				} ,
-				{
-					type = "damage" ,
-					damage = { type = "sicfl-water" , amount = 1 }
-				}
+				SIPackers.Attack_EffectDamage( "poison" , 1 ) ,
+				SIPackers.Attack_EffectDamage( "sicfl-water" , 1 )
 			}
 		}
 	}
+}
+local createFire =
+{
+	type = "create-fire" ,
+	entity_name = "fire-flame"
 }
 local action2 =
 {
@@ -132,39 +132,41 @@ local action2 =
 		action_delivery =
 		{
 			type = "instant" ,
-			target_effects =
-			{
-				{
-					type = "create-fire" ,
-					entity_name = "fire-flame"
-				}
-			}
+			target_effects = { createFire }
 		}
 	} ,
 	{
 		type = "area" ,
-		radius = 5 ,
+		radius = 4.2 ,
 		action_delivery =
 		{
 			type = "instant" ,
 			target_effects =
 			{
-				{
-					type = "damage" ,
-					damage = { type = "fire" , amount = 2 }
-				} ,
+				SIPackers.Attack_EffectDamage( "fire" , 2 ) ,
 				{
 					type = "create-sticker" ,
 					sticker = "fire-sticker"
 				} ,
-				{
-					type = "create-fire" ,
-					entity_name = "fire-flame"
-				}
+				createFire
 			}
 		}
 	}
 }
+local targetParticle =
+{
+	type = "create-particle" ,
+	particle_name = "stone-particle" ,
+	repeat_count = 12 ,
+	initial_height = 0.5 ,
+	initial_vertical_speed = 0.05 ,
+	initial_vertical_speed_deviation = 0.1 ,
+	speed_from_center = 0.05 ,
+	speed_from_center_deviation = 0.1 ,
+	offset_deviation = { { -0.8984 , -0.5 } , { 0.8984 , 0.5 } }
+}
+local areaParticle = table.deepcopy( targetParticle )
+areaParticle.repeat_count = 2
 local action3 =
 {
 	{
@@ -172,20 +174,7 @@ local action3 =
 		action_delivery =
 		{
 			type = "instant" ,
-			target_effects =
-			{
-				{
-					type = "create-particle" ,
-					particle_name = "stone-particle" ,
-					repeat_count = 12 ,
-					initial_height = 0.5 ,
-					initial_vertical_speed = 0.05 ,
-					initial_vertical_speed_deviation = 0.1 ,
-					speed_from_center = 0.05 ,
-					speed_from_center_deviation = 0.1 ,
-					offset_deviation = { { -0.8984 , -0.5 } , { 0.8984 , 0.5 } }
-				}
-			}
+			target_effects = { targetParticle }
 		}
 	} ,
 	{
@@ -196,25 +185,9 @@ local action3 =
 			type = "instant" ,
 			target_effects =
 			{
-				{
-					type = "damage" ,
-					damage = { type = "impact" , amount = 1 }
-				} ,
-				{
-					type = "damage" ,
-					damage = { type = "electric" , amount = 1 }
-				} ,
-				{
-					type = "create-particle" ,
-					particle_name = "stone-particle" ,
-					repeat_count = 2 ,
-					initial_height = 0.5 ,
-					initial_vertical_speed = 0.05 ,
-					initial_vertical_speed_deviation = 0.1 ,
-					speed_from_center = 0.05 ,
-					speed_from_center_deviation = 0.1 ,
-					offset_deviation = { { -0.8984 , -0.5 } , { 0.8984 , 0.5 } }
-				}
+				SIPackers.Attack_EffectDamage( "impact" , 1 ) ,
+				SIPackers.Attack_EffectDamage( "electric" , 1 ) ,
+				areaParticle
 			}
 		}
 	}
@@ -226,20 +199,7 @@ local action4 =
 		action_delivery =
 		{
 			type = "instant" ,
-			target_effects =
-			{
-				{
-					type = "create-particle" ,
-					particle_name = "stone-particle" ,
-					repeat_count = 12 ,
-					initial_height = 0.5 ,
-					initial_vertical_speed = 0.05 ,
-					initial_vertical_speed_deviation = 0.1 ,
-					speed_from_center = 0.05 ,
-					speed_from_center_deviation = 0.1 ,
-					offset_deviation = { { -0.8984 , -0.5 } , { 0.8984 , 0.5 } }
-				}
-			}
+			target_effects = { targetParticle }
 		}
 	} ,
 	{
@@ -250,21 +210,8 @@ local action4 =
 			type = "instant" ,
 			target_effects =
 			{
-				{
-					type = "damage" ,
-					damage = { type = "physical" , amount = 1 }
-				} ,
-				{
-					type = "create-particle" ,
-					particle_name = "stone-particle" ,
-					repeat_count = 2 ,
-					initial_height = 0.5 ,
-					initial_vertical_speed = 0.05 ,
-					initial_vertical_speed_deviation = 0.1 ,
-					speed_from_center = 0.05 ,
-					speed_from_center_deviation = 0.1 ,
-					offset_deviation = { { -0.8984 , -0.5 } , { 0.8984 , 0.5 } }
-				}
+				SIPackers.Attack_EffectDamage( "physical" , 1 ) ,
+				areaParticle
 			}
 		}
 	}
@@ -291,6 +238,20 @@ SIGen.NewResource( "宁寂矿-活化" )
 -- --------- 创建矿山石 ---------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
+local stoneParticle =
+{
+	type = "create-particle" ,
+	particle_name = "stone-particle" ,
+	repeat_count = 45 ,
+	initial_height = 0.5 ,
+	initial_vertical_speed = 0.08 ,
+	initial_vertical_speed_deviation = 0.15 ,
+	speed_from_center = 0.08 ,
+	speed_from_center_deviation = 0.15 ,
+	offset_deviation = { { -0.8984 , -0.5 } , { 0.8984 , 0.5 } }
+}
+local areaParticle = table.deepcopy( stoneParticle )
+areaParticle.repeat_count = 8
 local action5 =
 {
 	{
@@ -298,45 +259,19 @@ local action5 =
 		action_delivery =
 		{
 			type = "instant" ,
-			target_effects =
-			{
-				{
-					type = "create-particle" ,
-					particle_name = "stone-particle" ,
-					repeat_count = 45 ,
-					initial_height = 0.5 ,
-					initial_vertical_speed = 0.08 ,
-					initial_vertical_speed_deviation = 0.15 ,
-					speed_from_center = 0.08 ,
-					speed_from_center_deviation = 0.15 ,
-					offset_deviation = { { -0.8984 , -0.5 } , { 0.8984 , 0.5 } }
-				}
-			}
+			target_effects = { stoneParticle }
 		}
 	} ,
 	{
 		type = "area" ,
-		radius = 1.7 ,
+		radius = 1.6 ,
 		action_delivery =
 		{
 			type = "instant" ,
 			target_effects =
 			{
-				{
-					type = "damage" ,
-					damage = { type = "physical" , amount = 6 }
-				} ,
-				{
-					type = "create-particle" ,
-					particle_name = "stone-particle" ,
-					repeat_count = 8 ,
-					initial_height = 0.5 ,
-					initial_vertical_speed = 0.08 ,
-					initial_vertical_speed_deviation = 0.15 ,
-					speed_from_center = 0.08 ,
-					speed_from_center_deviation = 0.15 ,
-					offset_deviation = { { -0.8984 , -0.5 } , { 0.8984 , 0.5 } }
-				}
+				SIPackers.Attack_EffectDamage( "physical" , 6 ) ,
+				areaParticle
 			}
 		}
 	}
@@ -351,21 +286,22 @@ for i , v in pairs( rockList ) do
 		newRock.name = SIGen.CreateName( "矿山石"..i , SITypes.entity.simpleEntity )
 		newRock.localised_name = { "entity-name.sibt-simple-矿山石" }
 		newRock.localised_description = { "entity-description.sibt-simple-矿山石" }
-		newRock.max_health = ( newRock.max_health or 500 ) * 25
+		newRock.max_health = 51000
 		local minable = newRock.minable
 		if minable and minable.result then
 			minable.result = nil
 			minable.count = nil
 		else minable = {} end
-		if minable.mining_time then minable.mining_time = minable.mining_time * 10
-		else minable.mining_time = 35 end
+		minable.mining_time = 33
 		local results = {}
-		table.insert( results , SIPackers.SingleItemProduct( "stone" , 0.2 , 1 , 5 ) )
-		table.insert( results , SIPackers.SingleItemProduct( SIBT.item["矿山石"] , 0.1 , 1 , 3 ) )
+		table.insert( results , SIPackers.SingleItemProduct( "stone" , 0.8 , 1 , 5 ) )
+		table.insert( results , SIPackers.SingleItemProduct( SIBT.item["矿山石"] , 0.3 , 1 , 3 ) )
 		minable.results = results
 		newRock.minable = minable
 		if newRock.flags and not table.Has( newRock.flags , SIFlags.entityFlags.notOnMap ) then table.insert( newRock.flags , SIFlags.entityFlags.notOnMap )
 		else newRock.flags = { SIFlags.entityFlags.notOnMap } end
+		if newRock.collision_mask and not table.Has( newRock.collision_mask , "not-colliding-with-itself" ) then table.insert( newRock.collision_mask , "not-colliding-with-itself" )
+		else newRock.collision_mask = { "item-layer" , "object-layer" , "player-layer" , "water-tile" , "not-colliding-with-itself" } end
 		SIGen.Extend{ newRock }
 	end
 end

@@ -7,18 +7,22 @@ SIBTResource =
 	oreName = "sibt-resource-宁寂矿" ,
 	oreActiveName = "sibt-resource-宁寂矿-活化" ,
 	oreActiveDelay = 120 ,
-	oreActiveRadius = 25 ,
+	oreActiveRadius = 28 ,
 	oreActiveDamageType = "sicfl-twist" ,
-	oreActiveBuff =
+	oreActiveImmuneModuleStatus = "sibt-equipment-抵抗模块-宁寂矿-活化" ,
+	oreActiveImmuneModuleDamage = "sibt-equipment-抵抗模块-宁寂矿-伤害" ,
+	oreActiveBuffData =
 	{
 		id = "sibt-resource-宁寂矿-活化" ,
 		name = { "SIBT.buff-name-sibt-resource-宁寂矿-活化" } ,
 		description = { "SIBT.buff-description-sibt-resource-宁寂矿-活化" } ,
-		delay = 7200 ,
+		duration = 7200 ,
 		removeOnDeath = true ,
-		value =
+		values =
 		{
-			
+			[SIPlayerStatus.valueCode.speedCrafting] = { value = -1000000 } ,
+			[SIPlayerStatus.valueCode.speedMining]   = { value = -1000000 } ,
+			[SIPlayerStatus.valueCode.speedRunning]  = { value = -1000000 }
 		}
 	}
 }
@@ -72,14 +76,14 @@ function SIBTResource.OnChunkGenerated( event )
 				for x = x-width , x+width , 1 do
 					for y = y-height , y+height , 1 do
 						local name = SIBTResourceData.newRockList[math.random( #SIBTResourceData.newRockList )]
-						if name then surface.create_entity{ name = name , position = { x = x , y = y } , force = forceNeutral } end
+						if name then surface.create_entity{ name = name , position = { x , y } , force = forceNeutral } end
 					end
 				end
-				for x = x-width-5 , x+width+5 , 1 do
-					for y = y-height-5 , y+height+5 , 1 do
-						if math.random( 100 ) < 8 then
+				for x = x-width-12 , x+width+12 , 1 do
+					for y = y-height-12 , y+height+12 , 1 do
+						if math.random( 360 ) < 2 then
 							local name = SIBTResourceData.newRockList[math.random( #SIBTResourceData.newRockList )]
-							if name then surface.create_entity{ name = name , position = { x = x , y = y } , force = forceNeutral } end
+							if name and surface.can_place_entity{ name = name , position = { x , y } , force = forceNeutral } then surface.create_entity{ name = name , position = { x , y } , force = forceNeutral } end
 						end
 					end
 				end
@@ -100,8 +104,8 @@ function SIBTResource.OnTick( event )
 		local position = entity.position
 		for code , character in pairs( entity.surface.find_entities_filtered{ area = { { position.x-SIBTResource.oreActiveRadius , position.y-SIBTResource.oreActiveRadius } , { position.x+SIBTResource.oreActiveRadius , position.y+SIBTResource.oreActiveRadius } } , type = SITypes.entity.character } ) do
 			if character and character.valid then
-				character.damage( 25 , forceNeutral , SIBTResource.oreActiveDamageType , entity )
-				if character.is_player() and character.player then SIPlayerStatus.AddBuff( character.player.index , SIBTResource.oreActiveBuff ) end
+				if character.player then SIPlayerStatus.AddBuff( character.player.index , SIBTResource.oreActiveBuffData ) end
+				character.damage( 2.5 , forceNeutral , SIBTResource.oreActiveDamageType , entity )
 			end
 		end
 	end
