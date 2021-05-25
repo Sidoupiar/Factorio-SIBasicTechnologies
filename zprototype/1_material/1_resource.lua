@@ -49,10 +49,8 @@ local function CreateThrowItem( itemName , action , color )
 							type = "instant" ,
 							target_effects =
 							{
-								{
-									type = "play-sound" ,
-									sound = throwSound
-								}
+								type = "play-sound" ,
+								sound = throwSound
 							}
 						}
 					}
@@ -99,10 +97,8 @@ local action1 =
 			type = "instant" ,
 			target_effects =
 			{
-				{
-					type = "create-entity" ,
-					entity_name = "grenade-explosion"
-				}
+				type = "create-entity" ,
+				entity_name = "grenade-explosion"
 			}
 		}
 	} ,
@@ -132,7 +128,7 @@ local action2 =
 		action_delivery =
 		{
 			type = "instant" ,
-			target_effects = { createFire }
+			target_effects = createFire
 		}
 	} ,
 	{
@@ -174,7 +170,7 @@ local action3 =
 		action_delivery =
 		{
 			type = "instant" ,
-			target_effects = { targetParticle }
+			target_effects = targetParticle
 		}
 	} ,
 	{
@@ -199,7 +195,7 @@ local action4 =
 		action_delivery =
 		{
 			type = "instant" ,
-			target_effects = { targetParticle }
+			target_effects = targetParticle
 		}
 	} ,
 	{
@@ -259,7 +255,7 @@ local action5 =
 		action_delivery =
 		{
 			type = "instant" ,
-			target_effects = { stoneParticle }
+			target_effects = stoneParticle
 		}
 	} ,
 	{
