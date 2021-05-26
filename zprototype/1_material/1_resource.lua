@@ -8,7 +8,8 @@ SIGen.NewGroup( SIBT.group.item )
 local throwSound = SISounds.BaseSoundList( "fight/throw-projectile" , 6 , 0.4 )
 local walkSound = SISounds.BaseSoundList( "walking/resources/ore" , 10 , 0.7 )
 
-local function CreateThrowItem( itemName , action , color )
+local function CreateThrowItem( itemName , action , color , range )
+	if not range then range = 17 end
 	local projectileName = SIGen.NewProjectile( itemName )
 	.E.SetScale( 0.5 )
 	.SetSize( 1 , 1 )
@@ -58,11 +59,11 @@ local function CreateThrowItem( itemName , action , color )
 			}
 		}
 	}
-	return SIGen.NewCapsule( itemName ).SetAction( capsuleAction , color ).GetCurrentEntity()
+	return SIGen.NewCapsule( itemName ).SetAction( capsuleAction , SIPackers.ColorCopyWithA( color , 0.2 ) ).GetCurrentEntity()
 end
 
 local function CreateResource( itemName , resourceName , action , color , category )
-	local item = CreateThrowItem( itemName , action , SIPackers.ColorCopyWithA( color , 0.3 ) )
+	local item = CreateThrowItem( itemName , action , color )
 	SIBT.item[itemName] = SIGen.GetCurrentEntityName()
 	SIGen.NewResource( resourceName )
 	.E.SetCanGlow( true )
@@ -272,7 +273,7 @@ local action5 =
 		}
 	}
 }
-CreateThrowItem( "矿山石" , action5 )
+CreateThrowItem( "矿山石" , action5 , SIPackers.Color256( 224 , 160 , 83 ) , 15 )
 SIBT.item["矿山石"] = SIGen.GetCurrentEntityName()
 local rockList = { "rock-big" , "rock-huge" , "sand-rock-big" }
 for i , v in pairs( rockList ) do
@@ -305,6 +306,40 @@ end
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 去壳流程 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
+
+local shellParticle =
+{
+	type = "create-particle" ,
+	particle_name = "stone-particle" ,
+	repeat_count = 12 ,
+	initial_height = 0.5 ,
+	initial_vertical_speed = 0.08 ,
+	initial_vertical_speed_deviation = 0.15 ,
+	speed_from_center = 0.08 ,
+	speed_from_center_deviation = 0.15 ,
+	offset_deviation = { { -0.8984 , -0.5 } , { 0.8984 , 0.5 } }
+}
+local action6 =
+{
+	{
+		type = "direct" ,
+		action_delivery =
+		{
+			type = "instant" ,
+			target_effects = shellParticle
+		}
+	} ,
+	{
+		type = "area" ,
+		radius = 1.1 ,
+		action_delivery =
+		{
+			type = "instant" ,
+			target_effects = SIPackers.Attack_EffectDamage( "physical" , 1 )
+		}
+	}
+}
+CreateThrowItem( "矿石壳" , action6 , SIPackers.Color256( 210 , 210 , 210 ) , 19 )
 
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 反应流程 ----------------------------------------------------------------------------
