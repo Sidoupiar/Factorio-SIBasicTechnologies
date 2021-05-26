@@ -27,7 +27,7 @@ local function CreateThrowItem( itemName , action , color , range )
 			ammo_category = "grenade" ,
 			cooldown = 40 ,
 			projectile_creation_distance = 0.6 ,
-			range = 17 ,
+			range = range ,
 			ammo_type =
 			{
 				category = "grenade" ,
@@ -111,8 +111,8 @@ local action1 =
 			type = "instant" ,
 			target_effects =
 			{
-				SIPackers.Attack_EffectDamage( "poison" , 1 ) ,
-				SIPackers.Attack_EffectDamage( "sicfl-water" , 1 )
+				SIPackers.Attack_EffectDamage( SIBT.damageType.poison , 1 ) ,
+				SIPackers.Attack_EffectDamage( SIBT.damageType.water , 1 )
 			}
 		}
 	}
@@ -140,7 +140,7 @@ local action2 =
 			type = "instant" ,
 			target_effects =
 			{
-				SIPackers.Attack_EffectDamage( "fire" , 2 ) ,
+				SIPackers.Attack_EffectDamage( SIBT.damageType.fire , 2 ) ,
 				{
 					type = "create-sticker" ,
 					sticker = "fire-sticker"
@@ -182,8 +182,8 @@ local action3 =
 			type = "instant" ,
 			target_effects =
 			{
-				SIPackers.Attack_EffectDamage( "impact" , 1 ) ,
-				SIPackers.Attack_EffectDamage( "electric" , 1 ) ,
+				SIPackers.Attack_EffectDamage( SIBT.damageType.impact , 1 ) ,
+				SIPackers.Attack_EffectDamage( SIBT.damageType.electric , 1 ) ,
 				areaParticle
 			}
 		}
@@ -207,7 +207,8 @@ local action4 =
 			type = "instant" ,
 			target_effects =
 			{
-				SIPackers.Attack_EffectDamage( "physical" , 1 ) ,
+				SIPackers.Attack_EffectDamage( SIBT.damageType.twist , 1 ) ,
+				SIPackers.Attack_EffectDamage( SIBT.damageType.void , 1 ) ,
 				areaParticle
 			}
 		}
@@ -267,7 +268,7 @@ local action5 =
 			type = "instant" ,
 			target_effects =
 			{
-				SIPackers.Attack_EffectDamage( "physical" , 6 ) ,
+				SIPackers.Attack_EffectDamage( SIBT.damageType.physical , 5.5 ) ,
 				areaParticle
 			}
 		}
@@ -335,7 +336,7 @@ local action6 =
 		action_delivery =
 		{
 			type = "instant" ,
-			target_effects = SIPackers.Attack_EffectDamage( "physical" , 1 )
+			target_effects = SIPackers.Attack_EffectDamage( SIBT.damageType.physical , 0.5 )
 		}
 	}
 }

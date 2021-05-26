@@ -16,5 +16,27 @@ return
 		signal      = { name = "signals" } ,
 		agriculture = { name = "agriculture" , autoName = true }
 	} ,
+	damageType =
+	{
+		physical  = "physical" ,
+		impact    = "impact" ,
+		poison    = "poison" ,
+		explosion = "explosion" ,
+		fire      = "fire" ,
+		laser     = "laser" ,
+		acid      = "acid" ,
+		electric  = "electric" ,
+		
+		blood     = "sicfl-blood" ,
+		water     = "sicfl-water" ,
+		ice       = "sicfl-ice" ,
+		radiation = "sicfl-radiation" ,
+		disease   = "sicfl-disease" ,
+		energy    = "sicfl-energy" ,
+		fear      = "sicfl-fear" ,
+		spirit    = "sicfl-spirit" ,
+		twist     = "sicfl-twist" ,
+		void      = "sicfl-void"
+	} ,
 	item = {}
 }
