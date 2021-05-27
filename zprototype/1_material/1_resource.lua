@@ -275,8 +275,8 @@ local function CreateStoneAction( areaRadius , damage )
 		}
 	}
 end
-CreateThrowItem( "矿山石" , CreateStoneAction( 1.6 , 5.5 ) , SIPackers.Color256( 224 , 160 , 83 ) , 15 )
-CreateThrowItem( "矿山石-多孔" , CreateStoneAction( 1.5 , 4 ) , SIPackers.Color256( 166 , 107 , 36 ) , 16 )
+CreateThrowItem( "矿山石核" , CreateStoneAction( 1.6 , 5.5 ) , SIPackers.Color256( 224 , 160 , 83 ) , 15 )
+CreateThrowItem( "矿山石核-多孔" , CreateStoneAction( 1.5 , 4 ) , SIPackers.Color256( 166 , 107 , 36 ) , 16 )
 
 local rockList = { "rock-big" , "rock-huge" , "sand-rock-big" }
 for i , v in pairs( rockList ) do
@@ -284,8 +284,8 @@ for i , v in pairs( rockList ) do
 	if rock then
 		local newRock = table.deepcopy( rock )
 		newRock.name = SIGen.CreateName( "矿山石"..i , SITypes.entity.simpleEntity )
-		newRock.localised_name = { "entity-name.sibt-simple-矿山石" }
-		newRock.localised_description = { "entity-description.sibt-simple-矿山石" }
+		newRock.localised_name = { "SI-name.矿山石" }
+		newRock.localised_description = { "SI-description.矿山石" }
 		newRock.max_health = 51000
 		local minable = newRock.minable
 		if minable and minable.result then
@@ -295,12 +295,12 @@ for i , v in pairs( rockList ) do
 		minable.mining_time = 33
 		local results = {}
 		table.insert( results , SIPackers.SingleItemProduct( "stone" , 0.8 , 1 , 5 ) )
-		table.insert( results , SIPackers.SingleItemProduct( "矿山石" , 0.3 , 1 , 3 ) )
+		table.insert( results , SIPackers.SingleItemProduct( "矿山石核" , 0.3 , 1 , 3 ) )
 		minable.results = results
 		newRock.minable = minable
 		local loots = {}
 		table.insert( loots , SIPackers.LootItem( "stone" , 1 , 1 , 4 ) )
-		table.insert( loots , SIPackers.LootItem( "矿山石-多孔" , 0.3 , 1 , 2 ) )
+		table.insert( loots , SIPackers.LootItem( "矿山石核-多孔" , 0.3 , 1 , 2 ) )
 		newRock.loot = loots
 		if newRock.flags and not table.Has( newRock.flags , SIFlags.entityFlags.notOnMap ) then table.insert( newRock.flags , SIFlags.entityFlags.notOnMap )
 		else newRock.flags = { SIFlags.entityFlags.notOnMap } end
