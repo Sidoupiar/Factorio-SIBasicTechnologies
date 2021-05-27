@@ -2,8 +2,7 @@
 -- ---------- 创建矿物 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
-SIGen.NewGroup( SIBT.group.item )
-.NewSubGroup( "矿物" )
+SIGen.NewGroup( SIBT.group.item ).NewSubGroup( "矿物" )
 
 local throwSound = SISounds.BaseSoundList( "fight/throw-projectile" , 6 , 0.4 )
 local walkSound = SISounds.BaseSoundList( "walking/resources/ore" , 10 , 0.7 )
@@ -314,6 +313,7 @@ end
 -- ---------- 去壳流程 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
+SIGen.NewSubGroup( "矿物副产物" )
 local function CreateShellAction( particleCount , areaRadius , damage )
 	return
 	{
@@ -350,13 +350,57 @@ end
 CreateThrowItem( "矿石壳屑" , CreateShellAction( 2 , 0.4 , 0.1 ) , SIPackers.Color256( 200 , 200 , 200 ) , 21 )
 CreateThrowItem( "矿石壳" , CreateShellAction( 12 , 1.1 , 0.5 ) , SIPackers.Color256( 200 , 200 , 200 ) , 21 )
 
-local oreNames =
-{
-	["清水石"] = {} ,
-	["火苗石"] = {} ,
-	["悠远石"] = {} ,
-	["宁寂石"] = { "躁动稳定剂" }
-}
+local function CreateFluid( oreName , fluidName , fuelValue , heat , defaultTemp , maxTemp , gasTemp , fluidColor , otherIngredients )
+	local flowColor = SIPackers.ColorBright( fluidColor , 0.5 )
+	SIGen
+	.NewGroup( SIBT.group.fluid )
+	.NewSubGroup( "矿物内胆" )
+	.NewFluid( fluidName )
+	.SetFuel( fuelValue , heat )
+	.SetTemperature( defaultTemp , maxTemp , gasTemp )
+	.SetMapColor( fluidColor , flowColor )
+	
+	.NewGroup( SIBT.group.item )
+	.NewSubGroup( "矿物敲碎" )
+	.NewRecipe( "敲碎-"..oreName )
+	.SetEnergy( 2 )
+	.SetRecipeTypes( SIBT.recipeType.advanced )
+	.AddCosts( oreName , 2 )
+	.AddCosts( "工具-锤子" )
+	.AddCosts( SIPackers.IngredientsWithList( otherIngredients ) )
+	.AddResults( SIPackers.SingleFluidProduct( fluidName , 0.6 , 2 , 2 , nil , 2 ) )
+	.AddResults( SIPackers.SingleItemProduct( "工具-锤子" , 0.92 , 1 , 1 , 1 ) )
+	.AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 1 , nil , nil , 1 ) )
+	.SetSelfIcon( "敲碎-"..oreName )
+	
+	.NewSubGroup( "矿物开壳" )
+	.NewRecipe( "开壳-"..oreName )
+	.SetEnergy( 4 )
+	.SetRecipeTypes( SIBT.recipeType.advanced )
+	.AddCosts( oreName )
+	.AddCosts( "工具-钻头" )
+	.AddCosts( SIPackers.IngredientsWithList( otherIngredients ) )
+	.AddResults( SIPackers.SingleFluidProduct( fluidName , 0.85 , 1 , 1 , nil , 1 ) )
+	.AddResults( SIPackers.SingleItemProduct( "工具-钻头" , 0.9 , 1 , 1 , 1 ) )
+	.AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 0.07 , 1 , 1 , 1 ) )
+	.AddResults( SIPackers.SingleItemProduct( "矿石壳" , 0.85 , 1 , 1 , 1 ) )
+	.SetSelfIcon( "开壳-"..oreName )
+	
+	.NewRecipe( "去壳-"..oreName )
+	.SetEnergy( 5 )
+	.SetRecipeTypes( SIBT.recipeType["分离机"] )
+	.AddCosts( oreName )
+	.AddCosts( "工具-钻头" )
+	.AddCosts( SIPackers.IngredientsWithList( otherIngredients ) )
+	.AddResults( SIPackers.SingleFluidProduct( fluidName , 1 , nil , nil , nil , 1 ) )
+	.AddResults( SIPackers.SingleItemProduct( "工具-钻头" , 0.97 , 1 , 1 , 1 ) )
+	.AddResults( SIPackers.SingleItemProduct( "矿石壳" , 1 , nil , nil , 1 ) )
+	.SetSelfIcon( "去壳-"..oreName )
+end
+CreateFluid( "清水石" , "清水" , "480KJ" , "12J" , -1 , 223 , 14 , SIPackers.Color256( 31 , 173 , 225 ) )
+CreateFluid( "火苗石" , "火苗" , "13.35MJ" , "445J" , 135 , 1200000 , 140000 , SIPackers.Color256( 237 , 111 , 8 ) )
+CreateFluid( "悠远石" , "呼唤" , "0J" , "980KJ" , 0 , 10 , 8 , SIPackers.Color256( 240 , 36 , 129 ) )
+CreateFluid( "宁寂石" , "安宁" , "0J" , "1.45MJ" , 0 , 25 , 1 , SIPackers.Color256( 102 , 10 , 138 ) , { { "稳定剂-躁动抑制" } } )
 
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 反应流程 ----------------------------------------------------------------------------

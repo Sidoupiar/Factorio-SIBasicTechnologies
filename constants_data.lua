@@ -1,8 +1,9 @@
-return
+local data =
 {
 	base = "BasicTechnologies" ,
 	autoLoad = true ,
 	autoName = true ,
+	categories = {} ,
 	
 	
 	
@@ -38,5 +39,18 @@ return
 		twist     = "sicfl-twist" ,
 		void      = "sicfl-void"
 	} ,
-	item = {}
+	recipeType =
+	{
+		["分离机"] = "sibt-分离机"
+	}
 }
+
+local recipeTypes = {}
+for key , value in pairs( data.recipeType ) do table.insert( recipeTypes , value ) end
+
+data.categories[SITypes.category.recipe] = recipeTypes
+
+-- 补充部分数据
+data.recipeType.advanced = "advanced-crafting"
+
+return data
