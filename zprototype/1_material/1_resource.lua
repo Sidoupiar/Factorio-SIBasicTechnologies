@@ -9,7 +9,7 @@ local throwSound = SISounds.BaseSoundList( "fight/throw-projectile" , 6 , 0.4 )
 local walkSound = SISounds.BaseSoundList( "walking/resources/ore" , 10 , 0.7 )
 
 local function CreateThrowItem( itemName , action , color , range )
-	if not range then range = 17 end
+	if not range then range = 19 end
 	local projectileName = SIGen.NewProjectile( itemName )
 	.E.SetScale( 0.5 )
 	.SetSize( 1 , 1 )
@@ -274,8 +274,34 @@ local action5 =
 		}
 	}
 }
+local action6 =
+{
+	{
+		type = "direct" ,
+		action_delivery =
+		{
+			type = "instant" ,
+			target_effects = stoneParticle
+		}
+	} ,
+	{
+		type = "area" ,
+		radius = 1.5 ,
+		action_delivery =
+		{
+			type = "instant" ,
+			target_effects =
+			{
+				SIPackers.Attack_EffectDamage( SIBT.damageType.physical , 4 ) ,
+				areaParticle
+			}
+		}
+	}
+}
 CreateThrowItem( "矿山石" , action5 , SIPackers.Color256( 224 , 160 , 83 ) , 15 )
 SIBT.item["矿山石"] = SIGen.GetCurrentEntityName()
+CreateThrowItem( "矿山石-多孔" , action6 , SIPackers.Color256( 166 , 107 , 36 ) , 16 )
+SIBT.item["矿山石-多孔"] = SIGen.GetCurrentEntityName()
 local rockList = { "rock-big" , "rock-huge" , "sand-rock-big" }
 for i , v in pairs( rockList ) do
 	local rock = SIGen.GetData( SITypes.entity.simpleEntity , v )
@@ -296,6 +322,10 @@ for i , v in pairs( rockList ) do
 		table.insert( results , SIPackers.SingleItemProduct( SIBT.item["矿山石"] , 0.3 , 1 , 3 ) )
 		minable.results = results
 		newRock.minable = minable
+		local loots = {}
+		table.insert( loots , SIPackers.LootItem( "stone" , 1 , 1 , 4 ) )
+		table.insert( loots , SIPackers.LootItem( SIBT.item["矿山石-多孔"] , 0.3 , 1 , 2 ) )
+		newRock.loot = loots
 		if newRock.flags and not table.Has( newRock.flags , SIFlags.entityFlags.notOnMap ) then table.insert( newRock.flags , SIFlags.entityFlags.notOnMap )
 		else newRock.flags = { SIFlags.entityFlags.notOnMap } end
 		if newRock.collision_mask and not table.Has( newRock.collision_mask , "not-colliding-with-itself" ) then table.insert( newRock.collision_mask , "not-colliding-with-itself" )
@@ -308,6 +338,38 @@ end
 -- ---------- 去壳流程 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
+local chipParticle =
+{
+	type = "create-particle" ,
+	particle_name = "stone-particle" ,
+	repeat_count = 2 ,
+	initial_height = 0.5 ,
+	initial_vertical_speed = 0.08 ,
+	initial_vertical_speed_deviation = 0.15 ,
+	speed_from_center = 0.08 ,
+	speed_from_center_deviation = 0.15 ,
+	offset_deviation = { { -0.8984 , -0.5 } , { 0.8984 , 0.5 } }
+}
+local action7 =
+{
+	{
+		type = "direct" ,
+		action_delivery =
+		{
+			type = "instant" ,
+			target_effects = chipParticle
+		}
+	} ,
+	{
+		type = "area" ,
+		radius = 0.4 ,
+		action_delivery =
+		{
+			type = "instant" ,
+			target_effects = SIPackers.Attack_EffectDamage( SIBT.damageType.physical , 0.1 )
+		}
+	}
+}
 local shellParticle =
 {
 	type = "create-particle" ,
@@ -320,7 +382,7 @@ local shellParticle =
 	speed_from_center_deviation = 0.15 ,
 	offset_deviation = { { -0.8984 , -0.5 } , { 0.8984 , 0.5 } }
 }
-local action6 =
+local action8 =
 {
 	{
 		type = "direct" ,
@@ -340,7 +402,10 @@ local action6 =
 		}
 	}
 }
-CreateThrowItem( "矿石壳" , action6 , SIPackers.Color256( 210 , 210 , 210 ) , 19 )
+CreateThrowItem( "矿石壳屑" , action7 , SIPackers.Color256( 200 , 200 , 200 ) , 21 )
+SIBT.item["矿石壳屑"] = SIGen.GetCurrentEntityName()
+CreateThrowItem( "矿石壳" , action8 , SIPackers.Color256( 200 , 200 , 200 ) , 21 )
+SIBT.item["矿石壳"] = SIGen.GetCurrentEntityName()
 
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 反应流程 ----------------------------------------------------------------------------
