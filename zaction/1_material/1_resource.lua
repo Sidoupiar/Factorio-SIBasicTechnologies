@@ -4,18 +4,18 @@
 
 SIBTResource =
 {
-	oreName = "sibt-resource-宁寂矿" ,
-	oreActiveName = "sibt-resource-宁寂矿-活化" ,
+	oreName = SIFinder.Entity( "宁寂矿" , SITypes.entity.resource ) ,
+	oreActiveName = SIFinder.Entity( "宁寂矿-活化" , SITypes.entity.resource ) ,
 	oreActiveDelay = 120 ,
 	oreActiveRadius = 28 ,
 	oreActiveDamageType = SIBT.damageType.twist ,
-	oreActiveImmuneModuleStatus = "sibt-equipment-抵抗模块-宁寂矿-活化" ,
-	oreActiveImmuneModuleDamage = "sibt-equipment-抵抗模块-宁寂矿-伤害" ,
+	oreActiveImmuneModuleStatus = SIFinder.Equipment( "抵抗模块-宁寂矿-活化" ) ,
+	oreActiveImmuneModuleDamage = SIFinder.Equipment( "抵抗模块-宁寂矿-伤害" ) ,
 	oreActiveBuffData =
 	{
-		id = "sibt-resource-宁寂矿-活化" ,
-		name = { "SIBT.buff-name-sibt-resource-宁寂矿-活化" } ,
-		description = { "SIBT.buff-description-sibt-resource-宁寂矿-活化" } ,
+		id = "宁寂矿-活化" ,
+		name = { "SIBT-buff-name.宁寂矿-活化" } ,
+		description = { "SIBT-buff-description.宁寂矿-活化" } ,
 		duration = 7200 ,
 		removeOnDeath = true ,
 		values =
@@ -49,7 +49,7 @@ SIUnlocker.AddItem
 	{
 		{
 			type = SIUnlocker.condition.use ,
-			name = "sibt-capsule-清水石" ,
+			name = SIFinder.Item( "清水石" , SITypes.item.capsule ) ,
 			count = 5
 		}
 	} ,
@@ -57,7 +57,7 @@ SIUnlocker.AddItem
 	{
 		{
 			type = SIUnlocker.result.addRecipe ,
-			name = "sibt-recipe-敲碎-清水石"
+			name = SIFinder.Recipe( "敲碎-清水石" )
 		} ,
 		{
 			type = SIUnlocker.result.messageForce ,

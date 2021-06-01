@@ -1,13 +1,17 @@
 require( "__SICoreFunctionLibrary__/util" )
 
 needlist( "__SICoreFunctionLibrary__" , "define/load" , "function/load" )
-needlist( "__SICoreFunctionLibrary__/runtime/structure" , "sievent_bus" , "siglobal" , "siunlocker" , "siplayer_status" )
+needlist( "__SICoreFunctionLibrary__/runtime/structure" , "sievent_bus" , "siglobal" , "sifinder" , "siunlocker" , "siplayer_status" )
 
 load()
 
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 装载数据 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
+
+forceNeutral = "neutral"
+
+SIFinder.Init( SIBT )
 
 needlist( "zaction" , "1_common" )
 needlist( "zaction/1_material" , "1_resource" , "2_paint" , "3_tool" , "4_food" )
@@ -16,9 +20,8 @@ needlist( "zaction/3_level" , "1_machine" , "2_generator" , "3_minedrill" , "4_c
 
 needlist( "zaction/9_special" , "1_transbelt" , "2_pipe" , "3_railway" )
 
-forceNeutral = "neutral"
-
 -- ------------------------------------------------------------------------------------------------
 -- ----------- 初始化 -----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
+-- 暂无
