@@ -359,6 +359,7 @@ local function CreateFluid( oreName , fluidName , fuelValue , heat , defaultTemp
 	.SetFuel( fuelValue , heat )
 	.SetTemperature( defaultTemp , maxTemp , gasTemp )
 	.SetMapColor( fluidColor , flowColor )
+	.SetCustomData{ auto_barrel = false }
 	
 	.NewGroup( SIBT.group.item )
 	.NewSubGroup( "矿物敲碎" )
