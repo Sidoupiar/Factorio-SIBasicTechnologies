@@ -1,7 +1,7 @@
 require( "__SICoreFunctionLibrary__/util" )
 
 needlist( "__SICoreFunctionLibrary__" , "define/load" , "function/load" )
-needlist( "__SICoreFunctionLibrary__/runtime/structure" , "sievent_bus" , "siglobal" , "sifinder" , "siunlocker" , "siplayer_status" )
+needlist( "__SICoreFunctionLibrary__/runtime/structure" , "sievent_bus" , "siglobal" , "sifinder" , "interface_siunlocker" , "interface_siplayer_status" )
 
 load()
 
