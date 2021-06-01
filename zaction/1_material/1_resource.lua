@@ -13,9 +13,7 @@ SIBTResource =
 	oreActiveImmuneModuleDamage = SIFinder.Equipment( "抵抗模块-宁寂矿-伤害" ) ,
 	oreActiveBuffData =
 	{
-		id = "宁寂矿-活化" ,
-		name = { "SIBT-buff-name.宁寂矿-活化" } ,
-		description = { "SIBT-buff-description.宁寂矿-活化" } ,
+		id = "状态-宁寂矿-活化" ,
 		duration = 7200 ,
 		removeOnDeath = true ,
 		values =
@@ -43,7 +41,7 @@ end )
 
 SIUnlocker.AddItem
 {
-	id = "解锁 敲碎清水石" ,
+	id = "解锁-敲碎清水石" ,
 	version = 1 ,
 	conditions =
 	{
