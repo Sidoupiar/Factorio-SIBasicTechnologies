@@ -14,7 +14,7 @@ SIBTResource =
 	oreActiveBuffData =
 	{
 		id = "状态-宁寂矿-活化" ,
-		duration = 7200 ,
+		duration = 2700 ,
 		removeOnDeath = true ,
 		values =
 		{
@@ -39,6 +39,13 @@ end )
 -- ---------- 触发配方 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
+SIUnlocker
+.NewItem( "解锁-敲碎清水石" , 1 )
+.AddCondition_Use( SIFinder.Item( "清水石" , SITypes.item.capsule ) , 5 )
+.AddResult_AddRecipe( SIFinder.Recipe( "敲碎-清水石" ) )
+.AddResult_MessageForce( { "SIBT.new-recipe" } , true )
+.Finish()
+
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 功能方法 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
@@ -48,34 +55,6 @@ end )
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 公用方法 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
-
-function SIBTResource.OnInit()
-	SIUnlocker.AddItem
-	{
-		id = "解锁-敲碎清水石" ,
-		version = 1 ,
-		conditions =
-		{
-			{
-				type = SIUnlocker.condition.use ,
-				name = SIFinder.Item( "清水石" , SITypes.item.capsule ) ,
-				count = 5
-			}
-		} ,
-		results =
-		{
-			{
-				type = SIUnlocker.result.addRecipe ,
-				name = SIFinder.Recipe( "敲碎-清水石" )
-			} ,
-			{
-				type = SIUnlocker.result.messageForce ,
-				 message = { "SIBT.new-recipe" } ,
-				 sendToTrigger = true
-			}
-		}
-	}
-end
 
 function SIBTResource.OnChunkGenerated( event )
 	local surface = event.surface
@@ -128,8 +107,19 @@ function SIBTResource.OnTick( event )
 		local position = entity.position
 		for code , character in pairs( entity.surface.find_entities_filtered{ area = { { position.x-SIBTResource.oreActiveRadius , position.y-SIBTResource.oreActiveRadius } , { position.x+SIBTResource.oreActiveRadius , position.y+SIBTResource.oreActiveRadius } } , type = SITypes.entity.character } ) do
 			if character and character.valid then
-				if character.player then SIPlayerStatus.AddBuff( character.player.index , SIBTResource.oreActiveBuffData ) end
-				character.damage( 2.5 , forceNeutral , SIBTResource.oreActiveDamageType , entity )
+				if character.player then
+					local buffData = table.deepcopy( SIBTResource.oreActiveBuffData )
+					buffData.damages =
+					{
+						{
+							damageType = SIBTResource.oreActiveDamageType ,
+							damage = 0.4 ,
+							sourceEntity = entity
+						}
+					}
+					SIPlayerStatus.AddBuff( character.player.index , buffData )
+				end
+				character.damage( 5.5 , forceNeutral , SIBTResource.oreActiveDamageType , entity )
 			end
 		end
 	end
@@ -140,6 +130,5 @@ end
 -- ------------------------------------------------------------------------------------------------
 
 SIEventBus
-.Init( SIBTResource.OnInit )
 .Add( SIEvents.on_chunk_generated , SIBTResource.OnChunkGenerated )
 .Add( SIEvents.on_tick , SIBTResource.OnTick )
