@@ -39,32 +39,6 @@ end )
 -- ---------- 触发配方 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
-SIUnlocker.AddItem
-{
-	id = "解锁-敲碎清水石" ,
-	version = 1 ,
-	conditions =
-	{
-		{
-			type = SIUnlocker.condition.use ,
-			name = SIFinder.Item( "清水石" , SITypes.item.capsule ) ,
-			count = 5
-		}
-	} ,
-	results =
-	{
-		{
-			type = SIUnlocker.result.addRecipe ,
-			name = SIFinder.Recipe( "敲碎-清水石" )
-		} ,
-		{
-			type = SIUnlocker.result.messageForce ,
-			 message = { "SIBT.new-recipe" } ,
-			 sendToTrigger = true
-		}
-	}
-}
-
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 功能方法 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
@@ -74,6 +48,34 @@ SIUnlocker.AddItem
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 公用方法 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
+
+function SIBTResource.OnInit()
+	SIUnlocker.AddItem
+	{
+		id = "解锁-敲碎清水石" ,
+		version = 1 ,
+		conditions =
+		{
+			{
+				type = SIUnlocker.condition.use ,
+				name = SIFinder.Item( "清水石" , SITypes.item.capsule ) ,
+				count = 5
+			}
+		} ,
+		results =
+		{
+			{
+				type = SIUnlocker.result.addRecipe ,
+				name = SIFinder.Recipe( "敲碎-清水石" )
+			} ,
+			{
+				type = SIUnlocker.result.messageForce ,
+				 message = { "SIBT.new-recipe" } ,
+				 sendToTrigger = true
+			}
+		}
+	}
+end
 
 function SIBTResource.OnChunkGenerated( event )
 	local surface = event.surface
@@ -138,5 +140,6 @@ end
 -- ------------------------------------------------------------------------------------------------
 
 SIEventBus
+.Init( SIBTResource.OnInit )
 .Add( SIEvents.on_chunk_generated , SIBTResource.OnChunkGenerated )
 .Add( SIEvents.on_tick , SIBTResource.OnTick )
