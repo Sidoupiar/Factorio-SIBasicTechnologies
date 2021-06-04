@@ -42,6 +42,10 @@ local data =
 	recipeType =
 	{
 		["分离机"] = "sibt-分离机"
+	} ,
+	machine =
+	{
+		machine_1 = "assembling-machine-1"
 	}
 }
 

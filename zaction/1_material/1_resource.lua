@@ -63,6 +63,38 @@ SIUnlocker
 .AddCondition_Use( SIFinder.Item( "宁寂石" , SITypes.item.capsule ) , 200 )
 .AddResult_AddRecipe( SIFinder.Recipe( "敲碎-宁寂石" ) )
 .AddResult_MessageForce( { "SIBT.new-recipe" } , true )
+
+.NewItem( "解锁-清水石开壳" , 1 )
+.AddCondition_Build( SIBT.machine.machine_1 , 5 )
+.AddCondition_Craft( SIFinder.Recipe( "工具-钻头" ) , 5 )
+.AddCondition_Has( SIFinder.Item( "清水石" , SITypes.item.capsule ) , 250 )
+.AddCondition_Use( SIFinder.Item( "清水石" , SITypes.item.capsule ) , 50 )
+.AddResult_AddRecipe( SIFinder.Recipe( "开壳-清水石" ) )
+.AddResult_MessageForce( { "SIBT.new-recipe" } , true )
+
+.NewItem( "解锁-火苗石开壳" , 1 )
+.AddCondition_Build( SIBT.machine.machine_1 , 10 )
+.AddCondition_Craft( SIFinder.Recipe( "工具-钻头" ) , 5 )
+.AddCondition_Has( SIFinder.Item( "火苗石" , SITypes.item.capsule ) , 350 )
+.AddCondition_Use( SIFinder.Item( "火苗石" , SITypes.item.capsule ) , 50 )
+.AddResult_AddRecipe( SIFinder.Recipe( "开壳-火苗石" ) )
+.AddResult_MessageForce( { "SIBT.new-recipe" } , true )
+
+.NewItem( "解锁-悠远石开壳" , 1 )
+.AddCondition_Build( SIBT.machine.machine_1 , 25 )
+.AddCondition_Craft( SIFinder.Recipe( "工具-钻头" ) , 25 )
+.AddCondition_Has( SIFinder.Item( "悠远石" , SITypes.item.capsule ) , 550 )
+.AddCondition_Use( SIFinder.Item( "悠远石" , SITypes.item.capsule ) , 100 )
+.AddResult_AddRecipe( SIFinder.Recipe( "开壳-悠远石" ) )
+.AddResult_MessageForce( { "SIBT.new-recipe" } , true )
+
+.NewItem( "解锁-宁寂石开壳" , 1 )
+.AddCondition_Build( SIBT.machine.machine_1 , 50 )
+.AddCondition_Craft( SIFinder.Recipe( "工具-钻头" ) , 50 )
+.AddCondition_Has( SIFinder.Item( "宁寂石" , SITypes.item.capsule ) , 1050 )
+.AddCondition_Use( SIFinder.Item( "宁寂石" , SITypes.item.capsule ) , 200 )
+.AddResult_AddRecipe( SIFinder.Recipe( "开壳-宁寂石" ) )
+.AddResult_MessageForce( { "SIBT.new-recipe" } , true )
 .Finish()
 
 -- ------------------------------------------------------------------------------------------------
