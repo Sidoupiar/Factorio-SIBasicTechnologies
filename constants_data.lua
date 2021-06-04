@@ -39,9 +39,14 @@ local data =
 		twist     = "sicfl-twist" ,
 		void      = "sicfl-void"
 	} ,
+	fuelType =
+	{
+		["永燃"] = "sibt-永燃"
+	} ,
 	recipeType =
 	{
-		["分离机"] = "sibt-分离机"
+		["分离机"] = "sibt-分离机" ,
+		["萃取炉"] = "sibt-萃取炉"
 	} ,
 	machine =
 	{
@@ -49,13 +54,20 @@ local data =
 	}
 }
 
-local recipeTypes = {}
-for key , value in pairs( data.recipeType ) do table.insert( recipeTypes , value ) end
-
-data.categories[SITypes.category.recipe] = recipeTypes
+for name , category in pairs
+{
+	fuelType = SITypes.category.fuel ,
+	recipeType = SITypes.category.recipe
+} do
+	local types = {}
+	for key , value in pairs( data[name] ) do table.insert( types , value ) end
+	data.categories[category] = types
+end
 
 -- 补充部分数据
+data.fuelType.chemical    = "chemical"            -- 化学燃料
 data.recipeType.advanced  = "advanced-crafting"   -- 高级组装
 data.recipeType.withFluid = "crafting-with-fluid" -- 带有液体的组装
+
 
 return data
