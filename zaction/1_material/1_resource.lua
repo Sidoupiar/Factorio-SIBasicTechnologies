@@ -41,7 +41,8 @@ end )
 
 SIUnlocker
 .NewItem( "解锁-敲碎清水石" , 1 )
-.AddCondition_Use( SIFinder.Item( "清水石" , SITypes.item.capsule ) , 5 )
+.AddCondition_Craft( SIFinder.Recipe( "工具-锤子" ) )
+.AddCondition_Use( SIFinder.Item( "清水石" , SITypes.item.capsule ) , 50 )
 .AddResult_AddRecipe( SIFinder.Recipe( "敲碎-清水石" ) )
 .AddResult_MessageForce( { "SIBT.new-recipe" } , true )
 .Finish()
