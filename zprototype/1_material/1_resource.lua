@@ -407,6 +407,46 @@ CreateFluid( "宁寂石" , "安宁" , "0J" , "1.45MJ" , 0 , 25 , 1 , SIPackers.C
 -- ---------- 反应流程 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
+SIGen
+.NewGroup( SIBT.group.fluid )
+.NewSubGroup( "流体反应" )
+
+.NewRecipe( "清火中和" )
+.SetEnergy( 0.5 )
+.SetRecipeTypes( SIBT.recipeType.withFluid )
+.AddCosts( "清水" , 100 )
+.AddCosts( "火苗" , 100 )
+.AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 0.5 , 1 , 1 , 1 ) )
+.SetSelfIcon( "清火中和" )
+
+.NewRecipe( "清水稀释" )
+.SetEnergy( 1.5 )
+.SetRecipeTypes( SIBT.recipeType.withFluid )
+.AddCosts( "清水" , 100 )
+.AddCosts( "火苗" , 25 )
+.AddCosts( "water" , 1 )
+.AddResults( SIPackers.SingleItemProduct( "water" , 60 , nil , nil , nil , 60 ) )
+.AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 0.3125 , 1 , 1 , 1 ) )
+.SetSelfIcon( "清水稀释" )
+
+.NewRecipe( "爆热蒸发" )
+.SetEnergy( 4 )
+.SetRecipeTypes( SIBT.recipeType.withFluid )
+.AddCosts( "火苗" , 50 )
+.AddCosts( "water" , 80 )
+.AddResults( SIPackers.SingleItemProduct( "steam" , 80 , nil , nil , 165 , 80 ) )
+.AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 0.125 , 1 , 1 , 1 ) )
+.SetSelfIcon( "爆热蒸发" )
+
+.NewRecipe( "极寒凝结" )
+.SetEnergy( 5 )
+.SetRecipeTypes( SIBT.recipeType.withFluid )
+.AddCosts( "清水" , 50 )
+.AddCosts( SIPackers.SingleFluidIngredientsPack( "steam" , 80 , 160 , 170 ) )
+.AddResults( SIPackers.SingleItemProduct( "water" , 80 , nil , nil , nil , 80 ) )
+.AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 0.125 , 1 , 1 , 1 ) )
+.SetSelfIcon( "极寒凝结" )
+
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 冶炼流程 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------

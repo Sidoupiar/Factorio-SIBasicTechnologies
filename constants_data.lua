@@ -51,6 +51,7 @@ for key , value in pairs( data.recipeType ) do table.insert( recipeTypes , value
 data.categories[SITypes.category.recipe] = recipeTypes
 
 -- 补充部分数据
-data.recipeType.advanced = "advanced-crafting"
+data.recipeType.advanced  = "advanced-crafting"   -- 高级组装
+data.recipeType.withFluid = "crafting-with-fluid" -- 带有液体的组装
 
 return data
