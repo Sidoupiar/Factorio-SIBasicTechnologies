@@ -412,7 +412,7 @@ SIGen
 .NewSubGroup( "流体反应" )
 
 .NewRecipe( "清火中和" )
-.SetEnergy( 0.5 )
+.SetEnergy( 0.1 )
 .SetRecipeTypes( SIBT.recipeType.withFluid )
 .AddCosts( "清水" , 100 )
 .AddCosts( "火苗" , 100 )
