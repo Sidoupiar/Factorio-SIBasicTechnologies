@@ -39,6 +39,10 @@ local data =
 		twist     = "sicfl-twist" ,
 		void      = "sicfl-void"
 	} ,
+	equipmentType = 
+	{
+		armor = "armor"
+	} ,
 	fuelType =
 	{
 		["永燃"] = "sibt-永燃"

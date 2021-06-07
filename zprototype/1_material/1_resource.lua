@@ -506,5 +506,12 @@ SIGen
 -- ---------- 免疫设施 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
--- SIFinder.Equipment( "抵抗模块-宁寂矿-活化" )
--- SIFinder.Equipment( "抵抗模块-宁寂矿-伤害" )
+.NewEquipment( SITypes.equipment.battery , "抵抗模块-宁寂矿-活化" )
+.Size( SIUtils.PointsBorder( 4 , 4 ) )
+.SetEnergy( SIPackers.ElectricEnergySource( SITypes.electricUsagePriority.tertiary , "1MJ" , nil , "1MW" , "1MW" ) )
+.AddPluginTypes( SIBT.equipmentType.armor )
+
+.NewEquipment( SITypes.equipment.battery , "抵抗模块-宁寂矿-伤害" )
+.Size( 2 , 2 )
+.SetEnergy( SIPackers.ElectricEnergySource( SITypes.electricUsagePriority.tertiary , "500KJ" , nil , "500KW" , "500KW" ) )
+.AddPluginTypes( SIBT.equipmentType.armor )

@@ -11,8 +11,8 @@ SIBTResource =
 	oreActiveDamageType = SIBT.damageType.twist ,
 	oreActiveImmuneModuleStatus = SIFinder.Equipment( "抵抗模块-宁寂矿-活化" ) ,
 	oreActiveImmuneModuleDamage = SIFinder.Equipment( "抵抗模块-宁寂矿-伤害" ) ,
-	oreActiveImmuneModuleStatusCost = 300 ,
-	oreActiveImmuneModuleDamageCost = 50 ,
+	oreActiveImmuneModuleStatusCost = 50000 ,
+	oreActiveImmuneModuleDamageCost = 15000 ,
 	oreActiveBuffData =
 	{
 		id = "状态-宁寂矿-活化" ,
