@@ -11,6 +11,8 @@ SIBTResource =
 	oreActiveDamageType = SIBT.damageType.twist ,
 	oreActiveImmuneModuleStatus = SIFinder.Equipment( "抵抗模块-宁寂矿-活化" ) ,
 	oreActiveImmuneModuleDamage = SIFinder.Equipment( "抵抗模块-宁寂矿-伤害" ) ,
+	oreActiveImmuneModuleStatusCost = 300 ,
+	oreActiveImmuneModuleDamageCost = 50 ,
 	oreActiveBuffData =
 	{
 		id = "状态-宁寂矿-活化" ,
@@ -247,19 +249,25 @@ function SIBTResource.OnTick( event )
 		local position = entity.position
 		for code , character in pairs( entity.surface.find_entities_filtered{ area = { { position.x-SIBTResource.oreActiveRadius , position.y-SIBTResource.oreActiveRadius } , { position.x+SIBTResource.oreActiveRadius , position.y+SIBTResource.oreActiveRadius } } , type = SITypes.entity.character } ) do
 			if character and character.valid then
-				if character.player then
-					local buffData = table.deepcopy( SIBTResource.oreActiveBuffData )
-					buffData.damages =
-					{
-						{
-							damageType = SIBTResource.oreActiveDamageType ,
-							damage = 0.4 ,
-							sourceEntity = entity
-						}
-					}
-					SIPlayerStatus.AddBuff( character.player.index , buffData )
+				local hasEquipmentStatus = SI.Equipment.UseEnergy( SI.Equipment.FindByName( character , SIBTResource.oreActiveImmuneModuleStatus ) , SIBTResource.oreActiveImmuneModuleStatusCost )
+				local hasEquipmentDamage = SI.Equipment.UseEnergy( SI.Equipment.FindByName( character , SIBTResource.oreActiveImmuneModuleDamage ) , SIBTResource.oreActiveImmuneModuleDamageCost )
+				if not hasEquipmentStatus then
+					if character.player then
+						local buffData = table.deepcopy( SIBTResource.oreActiveBuffData )
+						if not hasEquipmentDamage then
+							buffData.damages =
+							{
+								{
+									damageType = SIBTResource.oreActiveDamageType ,
+									damage = 0.4 ,
+									sourceEntity = entity
+								}
+							}
+						end
+						SIPlayerStatus.AddBuff( character.player.index , buffData )
+					end
 				end
-				character.damage( 5.5 , forceNeutral , SIBTResource.oreActiveDamageType , entity )
+				if not hasEquipmentDamage then character.damage( 5.5 , forceNeutral , SIBTResource.oreActiveDamageType , entity ) end
 			end
 		end
 	end
