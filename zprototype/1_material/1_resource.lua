@@ -372,7 +372,6 @@ local function CreateFluid( oreName , fluidName , fuelValue , heat , defaultTemp
 	.AddResults( SIPackers.SingleFluidProduct( fluidName , 0.6 , 2 , 2 , nil , 2 ) )
 	.AddResults( SIPackers.SingleItemProduct( "工具-锤子" , 0.92 , 1 , 1 , 1 ) )
 	.AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 1 , nil , nil , 1 ) )
-	.SetSelfIcon( "敲碎-"..oreName )
 	
 	.NewSubGroup( "矿物开壳" )
 	.NewRecipe( "开壳-"..oreName )
@@ -385,7 +384,6 @@ local function CreateFluid( oreName , fluidName , fuelValue , heat , defaultTemp
 	.AddResults( SIPackers.SingleItemProduct( "工具-钻头" , 0.9 , 1 , 1 , 1 ) )
 	.AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 0.07 , 1 , 1 , 1 ) )
 	.AddResults( SIPackers.SingleItemProduct( "矿石壳" , 0.85 , 1 , 1 , 1 ) )
-	.SetSelfIcon( "开壳-"..oreName )
 	
 	.NewRecipe( "去壳-"..oreName )
 	.SetEnergy( 5 )
@@ -396,8 +394,8 @@ local function CreateFluid( oreName , fluidName , fuelValue , heat , defaultTemp
 	.AddResults( SIPackers.SingleFluidProduct( fluidName , 1 , nil , nil , nil , 1 ) )
 	.AddResults( SIPackers.SingleItemProduct( "工具-钻头" , 0.97 , 1 , 1 , 1 ) )
 	.AddResults( SIPackers.SingleItemProduct( "矿石壳" , 1 , nil , nil , 1 ) )
-	.SetSelfIcon( "去壳-"..oreName )
 end
+
 CreateFluid( "清水石" , "清水" , "480KJ" , "12J" , -1 , 223 , 14 , SIPackers.Color256( 31 , 173 , 225 ) )
 CreateFluid( "火苗石" , "火苗" , "13.35MJ" , "445J" , 135 , 1200000 , 140000 , SIPackers.Color256( 237 , 111 , 8 ) )
 CreateFluid( "悠远石" , "呼唤" , "0J" , "980KJ" , 0 , 10 , 8 , SIPackers.Color256( 240 , 36 , 129 ) )
@@ -407,17 +405,25 @@ CreateFluid( "宁寂石" , "安宁" , "0J" , "1.45MJ" , 0 , 25 , 1 , SIPackers.C
 -- ---------- 反应流程 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
+local mColor = SIPackers.Color256( 25 , 192 , 83 )
+
 SIGen
 .NewGroup( SIBT.group.fluid )
 .NewSubGroup( "流体反应" )
+
+.NewFluid( "妙气" )
+.SetFuel( "7.5J" , "7.5J" )
+.SetTemperature( 15 , 50 , 0 )
+.SetMapColor( mColor , SIPackers.ColorBright( mColor , 0.5 ) )
+.SetCustomData{ auto_barrel = false }
 
 .NewRecipe( "清火中和" )
 .SetEnergy( 0.1 )
 .SetRecipeTypes( SIBT.recipeType.withFluid )
 .AddCosts( "清水" , 100 )
 .AddCosts( "火苗" , 100 )
+.AddResults( SIPackers.SingleFluidProduct( "妙气" , 15 , nil , nil , nil , 15 ) )
 .AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 0.5 , 1 , 1 , 1 ) )
-.SetSelfIcon( "清火中和" )
 
 .NewRecipe( "清水稀释" )
 .SetEnergy( 1.5 )
@@ -427,7 +433,6 @@ SIGen
 .AddCosts( "water" , 1 )
 .AddResults( SIPackers.SingleFluidProduct( "water" , 60 , nil , nil , nil , 60 ) )
 .AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 0.3125 , 1 , 1 , 1 ) )
-.SetSelfIcon( "清水稀释" )
 
 .NewRecipe( "爆热蒸发" )
 .SetEnergy( 4 )
@@ -436,7 +441,6 @@ SIGen
 .AddCosts( "water" , 85 )
 .AddResults( SIPackers.SingleFluidProduct( "steam" , 85 , nil , nil , 165 , 85 ) )
 .AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 0.125 , 1 , 1 , 1 ) )
-.SetSelfIcon( "爆热蒸发" )
 
 .NewRecipe( "极寒凝结" )
 .SetEnergy( 5 )
@@ -445,7 +449,6 @@ SIGen
 .AddCosts( SIPackers.SingleFluidIngredientsPack( "steam" , 85 , 160 , 170 ) )
 .AddResults( SIPackers.SingleFluidProduct( "water" , 85 , nil , nil , nil , 85 ) )
 .AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 0.125 , 1 , 1 , 1 ) )
-.SetSelfIcon( "极寒凝结" )
 
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 冶炼流程 ----------------------------------------------------------------------------
@@ -464,7 +467,6 @@ SIGen
 .AddResults( SIPackers.SingleItemProduct( "稳定剂-清霜激荡" , 0.8 , 1 , 1 , 1 ) )
 .AddResults( SIPackers.SingleItemProduct( "矿山石核-多孔" , 2 , nil , nil , 2 ) )
 .AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 0.2 , 1 , 1 , 1 ) )
-.SetSelfIcon( "冰澄物质萃取" )
 
 .NewRecipe( "躁动物质萃取" )
 .SetEnergy( 25 )
@@ -476,9 +478,8 @@ SIGen
 .AddResults( SIPackers.SingleItemProduct( "稳定剂-焦香四溢" , 0.8 , 1 , 1 , 1 ) )
 .AddResults( SIPackers.SingleItemProduct( "矿山石核-多孔" , 2 , nil , nil , 2 ) )
 .AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 0.2 , 1 , 1 , 1 ) )
-.SetSelfIcon( "躁动物质萃取" )
 
-.NewRecipe( "永恒物质萃取" )
+.NewRecipe( "消逝物质萃取" )
 .SetEnergy( 50 )
 .SetRecipeTypes( SIBT.recipeType["萃取炉"] )
 .AddCosts( "矿山石核-多孔" , 3 )
@@ -488,7 +489,6 @@ SIGen
 .AddResults( SIPackers.SingleItemProduct( "稳定剂-梦回千古" , 0.8 , 1 , 1 , 1 ) )
 .AddResults( SIPackers.SingleItemProduct( "矿山石核-多孔" , 2 , nil , nil , 2 ) )
 .AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 0.2 , 1 , 1 , 1 ) )
-.SetSelfIcon( "消逝物质萃取" )
 
 .NewRecipe( "静谧物质萃取" )
 .SetEnergy( 130 )
@@ -500,7 +500,6 @@ SIGen
 .AddResults( SIPackers.SingleItemProduct( "稳定剂-躁动抑制" , 0.8 , 1 , 1 , 1 ) )
 .AddResults( SIPackers.SingleItemProduct( "矿山石核-多孔" , 2 , nil , nil , 2 ) )
 .AddResults( SIPackers.SingleItemProduct( "矿石壳屑" , 0.2 , 1 , 1 , 1 ) )
-.SetSelfIcon( "静谧物质萃取" )
 
 -- ------------------------------------------------------------------------------------------------
 -- ---------- 免疫设施 ----------------------------------------------------------------------------
