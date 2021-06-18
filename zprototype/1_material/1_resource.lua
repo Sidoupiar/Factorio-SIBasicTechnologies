@@ -70,7 +70,7 @@ local function CreateResource( itemName , resourceName , action , color , catego
 	.SetMapColor( color )
 	.SetStagesEffectsSettings( 5 , 1 , 3.6 , 0.2 , 0.3 )
 	.AddFlags( SIFlags.entityFlags.notOnMap , SIFlags.entityFlags.hidden )
-	.SetTreeSettings( 0.8 , 32*32 )
+	.SetTreeRemovalSettings( 0.8 , 32*32 )
 	.FillImage()
 	.SetSound( "walking_sound" , walkSound )
 	.SetAutoPlace(
